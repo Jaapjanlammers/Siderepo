@@ -14,7 +14,7 @@
         extend: {
           fontFamily: { outfit: ['Outfit', 'sans-serif'] },
           colors: {
-            accent: '#0066FF',
+            accent: '#8A9BFF',
             charcoal: '#1a1a1a',
           },
         },
@@ -25,35 +25,101 @@
     body { font-family: 'Outfit', sans-serif; }
     details summary::-webkit-details-marker { display: none; }
   </style>
-  <!-- Brevo form styles -->
+  <!-- Brevo form styles, adjusted to match page design -->
   <style>
-    @font-face {
-      font-display: block;
-      font-family: Roboto;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
+    /* Keep Brevo defaults but visually align with Outfit/Tailwind look */
+    #sib-form-container,
+    #sib-form-container * {
+      font-family: 'Outfit', sans-serif !important;
+      box-sizing: border-box;
     }
-    @font-face {
-      font-display: fallback;
-      font-family: Roboto;
-      font-weight: 600;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
+
+    #sib-container {
+      background-color: #ffffff !important;
+      border-radius: 1rem !important;
+      border-color: #e2e8f0 !important; /* slate-200 */
     }
-    @font-face {
-      font-display: fallback;
-      font-family: Roboto;
+
+    #sib-container .sib-form-block p {
+      color: #1f2933 !important; /* charcoal-ish */
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    #sib-container .sib-form-block:first-child p {
+      font-size: 1.125rem; /* text-lg */
       font-weight: 700;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
+      margin-bottom: 0.25rem;
     }
-    #sib-container input:-ms-input-placeholder,
+
+    #sib-container .entry__label {
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      color: #111827 !important; /* text-charcoal */
+      margin-bottom: 0.25rem;
+    }
+
+    #sib-container .input {
+      width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid #e2e8f0; /* slate-200 */
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+      color: #111827;
+    }
+
+    #sib-container .input:focus {
+      outline: none;
+      border-color: #8A9BFF;
+      box-shadow: 0 0 0 1px rgba(138, 155, 255, 0.25);
+    }
+
     #sib-container input::placeholder,
     #sib-container textarea::placeholder {
-      text-align: left;
-      font-family: Futura, sans-serif;
-      color: #c0ccda;
+      color: #9ca3af; /* slate-400 */
     }
+
+    #sib-container .entry__specification {
+      font-size: 0.75rem !important;
+      color: #6b7280 !important; /* slate-500 */
+    }
+
+    /* Checkbox text (20+ confirmation and opt-in) */
+    #sib-container .entry_mcq span {
+      font-size: 0.75rem !important; /* smaller than labels */
+      color: #6b7280 !important; /* slate-500 */
+    }
+
+    #sib-container .sib-form-block__button {
+      width: 100%;
+      border-radius: 0.75rem;
+      background-color: #8A9BFF !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      padding: 0.85rem 1.5rem !important;
+      text-align: center !important;
+      border: none !important;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    #sib-container .sib-form-block__button:hover {
+      background-color: #0052cc !important;
+      transform: scale(1.02);
+    }
+
+    #sib-container .sib-form-block__button:active {
+      transform: scale(0.99);
+    }
+
     #sib-container a {
       text-decoration: underline;
-      color: #2BB2FC;
+      color: #8A9BFF;
+    }
+
+    /* Panel messages */
+    #sib-form-container .sib-form-message-panel {
+      border-radius: 0.75rem !important;
+      font-size: 0.85rem !important;
     }
   </style>
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
@@ -153,7 +219,7 @@
       <aside class="w-full lg:w-[340px] flex-shrink-0 order-2 lg:order-2 lg:sticky lg:top-24 lg:self-start">
         <div id="apply" class="rounded-2xl border border-white/60 bg-white/70 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-4">
           <!-- Brevo Form -->
-          <div class="sib-form" style="text-align: center; background-color: #EFF2F7;">
+          <div class="sib-form" style="text-align: center; background-color: transparent;">
             <div id="sib-form-container" class="sib-form-container">
               <div id="error-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;">
                 <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -180,12 +246,12 @@
               <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:14px; border-width:1px; border-color:#C0CCD9; border-style:solid; direction:ltr">
                 <form id="sib-form" method="POST" action="https://6976f503.sibforms.com/serve/MUIFACRmZcjl7p9ICS8BjPb76yHCXl4Nd5ASxPXrxnNi2WCDy4px6UirhF0ZYj5ZhCqzaNPYua_YxewdY5jJICemn_ASyqRgg5EeUTvMjFS3wJ9RCXvr5H3ulPEVJYKllqcLz6uIKpCX0xM6yKPD5f_lA8S0Qr552ZVtwauYSskOpXpC9RSHaoA1pPuXA7eksL5u0r9wX-a-DMnUzQ==" data-type="subscription">
                   <div style="padding: 8px 0;">
-                    <div class="sib-form-block" style="font-size:32px; text-align:left; font-weight:700; font-family:Futura, sans-serif; color:#3C4858; background-color:transparent; text-align:left">
-                      <p>Content Streamer&nbsp;</p>
+                    <div class="sib-form-block" style="text-align:left; background-color:transparent;">
+                      <p>Application form</p>
                     </div>
                   </div>
                   <div style="padding: 8px 0;">
-                    <div class="sib-form-block" style="font-size:16px; text-align:left; font-family:Futura, sans-serif; color:#3C4858; background-color:transparent; text-align:left">
+                    <div class="sib-form-block" style="text-align:left; background-color:transparent;">
                       <div class="sib-text-form-block">
                         <p>Ready to take the next steps? Start here with the basics. We’ll follow up via email so you can tell us more about your vision and officially send in your application.&nbsp;</p>
                       </div>
@@ -195,7 +261,7 @@
                     <div class="sib-input sib-form-block">
                       <div class="form__entry entry_block">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="FIRSTNAME" data-required="*">Firstname</label>
+                          <label class="entry__label" for="FIRSTNAME" data-required="*">First name</label>
                           <div class="entry__field">
                             <input class="input " maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="" data-required="true" required />
                           </div>
@@ -208,7 +274,7 @@
                     <div class="sib-input sib-form-block">
                       <div class="form__entry entry_block">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="LASTNAME" data-required="*">Last name</label>
+                          <label class="entry__label" for="LASTNAME" data-required="*">Last name</label>
                           <div class="entry__field">
                             <input class="input " maxlength="200" type="text" id="LASTNAME" name="LASTNAME" autocomplete="off" placeholder="" data-required="true" required />
                           </div>
@@ -221,7 +287,7 @@
                     <div class="sib-input sib-form-block">
                       <div class="form__entry entry_block">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="EMAIL" data-required="*">Email</label>
+                          <label class="entry__label" for="EMAIL" data-required="*">Email</label>
                           <div class="entry__field">
                             <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="" data-required="true" required />
                           </div>
@@ -234,7 +300,7 @@
                     <div class="sib-input sib-form-block">
                       <div class="form__entry entry_block">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="SOCIALMEDIAHANDLE" data-required="*">Your go-to social media</label>
+                          <label class="entry__label" for="SOCIALMEDIAHANDLE" data-required="*">Your go-to social media</label>
                           <div class="entry__field">
                             <input class="input " maxlength="200" type="text" id="SOCIALMEDIAHANDLE" name="SOCIALMEDIAHANDLE" autocomplete="off" placeholder="@Social_handle" data-required="true" required />
                           </div>
@@ -247,13 +313,13 @@
                     <div class="sib-input sib-form-block">
                       <div class="form__entry">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="BIRTHDAY" data-required="*">Birthday</label>
+                          <label class="entry__label" for="BIRTHDAY" data-required="*">Birthday</label>
                           <div class="entry__field">
                             <input maxlength="200" type="text" data-type="date" class="input " pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\\d{4}$" title="dd-mm-yyyy" data-format="dd-mm-yyyy" id="BIRTHDAY" name="BIRTHDAY" autocomplete="off" placeholder="BIRTHDAY" data-required="true" required />
                           </div>
                         </div>
                         <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
-                        <label class="entry__specification" style="font-size:12px; text-align:left; font-family:Futura, sans-serif; color:#8390A4;">
+                        <label class="entry__specification">
                           dd-mm-yyyy
                         </label>
                       </div>
@@ -267,7 +333,7 @@
                             <label>
                               <input type="checkbox" class="input_replaced" value="1" id="OVER18" name="OVER18" />
                               <span class="checkbox checkbox_tick_positive"></span>
-                              <span style="font-size:14px; text-align:left; font-family:Futura, sans-serif; color:#3C4858; background-color:transparent;"><p>I confirm that I am 20 or older</p></span>
+                              <span><p>I confirm that I am 20 or older</p></span>
                             </label>
                           </div>
                         </div>
@@ -279,12 +345,12 @@
                     <div class="sib-optin sib-form-block" data-required="true">
                       <div class="form__entry entry_mcq">
                         <div class="form__label-row ">
-                          <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:Futura, sans-serif; color:#3c4858;" for="OPT_IN" data-required="*">Opt-in</label>
+                          <label class="entry__label" for="OPT_IN" data-required="*">Opt-in</label>
                           <div class="entry__choice">
                             <label>
                               <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required />
                               <span class="checkbox checkbox_tick_positive"></span>
-                              <span style="font-size:14px; text-align:left; font-family:Futura, sans-serif; color:#3C4858; background-color:transparent;"><p>I agree that I filled in the information correctly and I am looking for a job as a content creator.</p></span>
+                              <span><p>I agree that I filled in the information correctly and I am looking for a job as a content creator.</p></span>
                             </label>
                           </div>
                         </div>
@@ -294,7 +360,7 @@
                   </div>
                   <div style="padding: 8px 0;">
                     <div class="sib-form-block" style="text-align: left">
-                      <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:left; font-weight:700; font-family:Futura, sans-serif; color:#FFFFFF; background-color:#000000; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
+                      <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
                         <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
                           <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
                         </svg>

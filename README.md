@@ -30,7 +30,7 @@ Recommended: hero portrait in 9:16, squares in 1:1. If a file is missing, the Be
 - **HTML** – single-page structure
 - **Tailwind CSS** – via CDN (no build step)
 - **Font** – Outfit (Google Fonts)
-- **Accent** – Electric Blue `#0066FF`
+- **Accent** – Soft periwinkle `#8A9BFF`
 
 ## Layout overview
 
