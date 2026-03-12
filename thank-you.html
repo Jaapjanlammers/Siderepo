@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — Vantage.Content</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { outfit: ['Outfit', 'sans-serif'] },
+          colors: {
+            accent: '#0066FF',
+            charcoal: '#1a1a1a',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: 'Outfit', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-charcoal font-outfit antialiased overflow-x-hidden">
+
+  <header class="border-b border-slate-100 bg-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold text-charcoal">Content Streamers</a>
+      <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-[#25D366] px-5 py-3 min-h-[44px] inline-flex items-center justify-center text-white font-semibold text-sm hover:bg-[#20bd5a] transition-colors duration-200">
+        Apply using WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 lg:px-8 py-12 lg:py-16">
+    <div class="text-center mb-10">
+      <h1 class="text-2xl sm:text-3xl font-bold text-charcoal mb-2">Thanks for updating your info</h1>
+      <p class="text-slate-600">Here’s what you’ve just received from us.</p>
+    </div>
+
+    <article class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="p-6 sm:p-8 lg:p-10">
+        <p class="text-slate-700 leading-relaxed mb-6">
+          Thank you for taking the time to answer those follow-up questions. We know it takes a lot of creative energy, and we truly appreciate the insight into how you think.
+        </p>
+
+        <h2 class="text-lg font-semibold text-charcoal mt-8 mb-3">What happens now?</h2>
+        <p class="text-slate-700 leading-relaxed mb-4">
+          Our team is going into "curation mode." We're going to look over your responses alongside your earlier work to see how our visions might align. We're big believers in quality over quantity, so we want to give your application the thoughtful attention it deserves.
+        </p>
+        <p class="text-slate-700 leading-relaxed mb-6">
+          We'll be back in your inbox within 24 hours to let you know if we're moving forward to an interview.
+        </p>
+
+        <p class="text-slate-700 leading-relaxed mb-8">
+          Thank you for sharing.
+        </p>
+
+        <p class="text-slate-700">
+          Best,<br />
+          <strong class="text-charcoal">The vantage.content Team</strong>
+        </p>
+      </div>
+    </article>
+
+    <p class="text-center mt-8 text-slate-500 text-sm">
+      <a href="index.html" class="text-accent font-medium hover:underline">Back to Content Streamers</a>
+    </p>
+  </main>
+
+</body>
+</html>
