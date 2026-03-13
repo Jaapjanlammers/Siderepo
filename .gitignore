@@ -5,3 +5,9 @@ dist/
 *.tmp
 *.swp
 
+# Env and secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+
