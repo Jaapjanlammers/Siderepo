@@ -67,6 +67,10 @@
       .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
       .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
     }
+    @media (max-width: 480px) {
+      .landing-hero-tagline__word { font-size: clamp(2.5rem, 14vw, 4rem); }
+      .landing-hero-tagline { padding: clamp(2rem, 8vw, 4rem); }
+    }
 
     .landing-hero {
       position: relative;
@@ -104,7 +108,7 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 2rem;
+      padding: clamp(4rem, 12vw, 10rem);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -122,11 +126,11 @@
       transform: translate(-50%, -50%);
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: clamp(3.5rem, 7vw, 5.25rem);
+      font-size: clamp(5.25rem, 10.5vw, 7.875rem);
       letter-spacing: 0.02em;
       line-height: 1.12;
-      color: #f8f6f3;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      color: #080808;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       white-space: nowrap;
       opacity: 0;
     }
@@ -147,14 +151,14 @@
       font-size: 1rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(248, 246, 243, 0.9);
+      color: #080808;
       text-decoration: none;
-      border-bottom: 1px solid rgba(248, 246, 243, 0.5);
+      border-bottom: 1px solid rgba(8, 8, 8, 0.6);
       padding-bottom: 0.25rem;
     }
     .landing-hero-enter:hover {
-      color: #fff;
-      border-bottom-color: #fff;
+      color: #000;
+      border-bottom-color: #000;
     }
     @keyframes word-in {
       to { opacity: 1; }
