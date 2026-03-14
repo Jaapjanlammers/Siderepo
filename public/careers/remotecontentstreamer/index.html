@@ -14,8 +14,9 @@
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
-            accent: '#8A9BFF',
+            accent: '#0b0b0d',
             charcoal: '#1a1a1a',
+            cream: '#f5f3f0',
           },
         },
       },
@@ -113,6 +114,14 @@
       letter-spacing: 0.02em !important;
       font-size: clamp(1.1rem, 2vw, 1.35rem) !important;
     }
+    .apply-wa-cta {
+      background: #f5f3f0;
+      color: #0b0b0d;
+    }
+    .apply-wa-cta:hover {
+      background: #fff;
+      color: #0b0b0d;
+    }
   </style>
   <!-- Brevo form styles, adjusted to match page design -->
   <style>
@@ -159,8 +168,8 @@
 
     #sib-container .input:focus {
       outline: none;
-      border-color: #8A9BFF;
-      box-shadow: 0 0 0 1px rgba(138, 155, 255, 0.25);
+      border-color: #0b0b0d;
+      box-shadow: 0 0 0 1px rgba(11, 11, 13, 0.2);
     }
 
     #sib-container input::placeholder,
@@ -182,7 +191,8 @@
     #sib-container .sib-form-block__button {
       width: 100%;
       border-radius: 0.75rem;
-      background-color: #8A9BFF !important;
+      background-color: #f5f3f0 !important;
+      color: #0b0b0d !important;
       font-size: 0.9rem !important;
       font-weight: 600 !important;
       padding: 0.85rem 1.5rem !important;
@@ -192,7 +202,7 @@
     }
 
     #sib-container .sib-form-block__button:hover {
-      background-color: #0052cc !important;
+      background-color: #e8e6e3 !important;
       transform: scale(1.02);
     }
 
@@ -202,7 +212,7 @@
 
     #sib-container a {
       text-decoration: underline;
-      color: #8A9BFF;
+      color: #0b0b0d;
     }
 
     /* Panel messages */
@@ -287,7 +297,7 @@
           </div>
         </dl>
         <div class="flex items-center justify-center sm:justify-end sm:ml-auto w-full sm:w-auto">
-          <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="inline-block rounded-xl bg-[#25D366] px-8 py-4 text-white font-semibold hover:bg-[#20bd5a] hover:scale-105 active:scale-100 transition-all duration-200 text-center">
+          <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="apply-wa-cta inline-block rounded-xl px-8 py-4 font-semibold transition-all duration-200 text-center">
             Apply using WhatsApp
           </a>
         </div>
