@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design the Broadcast — Vantage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; min-height: 100%; background: #FFFFFF; font-family: 'Inter', sans-serif; color: #080808; overflow-x: hidden; }
+
+    .hero-full {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+    .hero-full-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-full-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .hero-full-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(
+        ellipse 140% 130% at 88% 12%,
+        transparent 0%,
+        transparent 22%,
+        rgba(12, 11, 10, 0.5) 50%,
+        rgba(12, 11, 10, 0.88) 75%,
+        rgba(12, 11, 10, 0.98) 100%
+      );
+      pointer-events: none;
+    }
+    .hero-full-content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 4rem);
+      max-width: 520px;
+    }
+    .hero-full-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(3.5rem, 7vw, 5.25rem);
+      letter-spacing: 0.02em;
+      line-height: 1.12;
+      color: #f8f6f3;
+      margin-bottom: 1.25rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .hero-full-content p {
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      line-height: 1.65;
+      color: rgba(248, 246, 243, 0.92);
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .hero-full-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .page-section {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 100vh;
+    }
+    .page-sections .page-section:nth-child(odd) {
+      flex-direction: row;
+    }
+    .page-sections .page-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    @media (max-width: 768px) {
+      .page-section { flex-direction: column !important; }
+    }
+
+    .section-image {
+      flex: 1 1 50%;
+      min-height: 50vh;
+      min-width: 280px;
+    }
+    .section-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      min-height: 100%;
+      min-width: 100%;
+    }
+    .section-image--align-right img {
+      object-position: right center;
+    }
+    .section-image .img-wrap {
+      width: 100%;
+      height: 100%;
+      min-height: 50vh;
+    }
+        .section-image--framed .img-wrap {
+      padding: 5.5rem;
+      background: #FFFFFF;
+      border: none;
+      box-shadow: none;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .section-image--framed .img-wrap { padding: 2rem; }
+    }
+    .section-image--framed .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .section-text {
+      flex: 1 1 50%;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 2.5rem;
+    }
+    .page-sections .page-section:nth-child(odd) .section-text {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .page-sections .page-section:nth-child(even) .section-text {
+      align-items: flex-end;
+      text-align: right;
+    }
+    @media (max-width: 768px) {
+      .page-sections .page-section:nth-child(even) .section-text { align-items: flex-start; text-align: left; }
+    }
+
+    .section-text h1,
+    .section-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      max-width: 420px;
+    }
+    .section-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 420px;
+      color: #333;
+    }
+    .section-text .pillars-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2rem;
+      margin-top: 1rem;
+      max-width: 420px;
+    }
+    .page-sections .page-section:nth-child(even) .section-text .pillars-row {
+      justify-content: flex-end;
+    }
+    @media (max-width: 768px) {
+      .page-sections .page-section:nth-child(even) .section-text .pillars-row { justify-content: flex-start; }
+    }
+    .section-text .pillar {
+      text-align: left;
+    }
+    .page-sections .page-section:nth-child(even) .section-text .pillar {
+      text-align: right;
+    }
+    @media (max-width: 768px) {
+      .page-sections .page-section:nth-child(even) .section-text .pillar { text-align: left; }
+    }
+    .section-text .pillar span:first-child {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      margin-bottom: 0.25rem;
+      color: #666;
+    }
+    .section-text .pillar span:last-child {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #080808;
+    }
+
+    .section-text .value-item {
+      margin-top: 1.25rem;
+      max-width: 420px;
+    }
+    .section-text .value-item h3 {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.35rem;
+      color: #555;
+      font-family: 'Inter', sans-serif;
+    }
+    .section-text .value-item p {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #333;
+    }
+
+    .form-block {
+      max-width: 380px;
+    }
+    .form-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .form-block .form-intro {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .form-block input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid #E5E5E5;
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+    }
+    .form-block input:focus {
+      outline: none;
+      border-color: #080808;
+    }
+    .form-block button {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      margin-top: 0.25rem;
+      background: #080808;
+      color: #fff;
+      border: none;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    .form-block button:hover { opacity: 0.85; }
+
+    .hero-icons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    @media (max-width: 768px) {
+      .hero-icons { grid-template-columns: 1fr; padding: 2rem 1.5rem 3rem; }
+    }
+    .hero-icons .icon-card {
+      text-align: center;
+      padding: 0 2rem;
+      border-right: 1px solid #e8e8e8;
+    }
+    .hero-icons .icon-card:last-child {
+      border-right: none;
+    }
+    @media (max-width: 768px) {
+      .hero-icons .icon-card {
+        padding: 1.5rem 1rem;
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+      }
+      .hero-icons .icon-card:last-child { border-bottom: none; }
+    }
+    .hero-icons .icon-wrap {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-icons .icon-wrap svg {
+      width: 48px;
+      height: 48px;
+      stroke: #080808;
+    }
+    .hero-icons .icon-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      color: #080808;
+    }
+    .hero-icons .icon-card p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #555;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.5rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(11, 11, 13, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .site-header__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f5f3f0;
+      text-decoration: none;
+    }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .site-header__nav a {
+      color: rgba(245, 243, 240, 0.9);
+      text-decoration: none;
+    }
+    .site-header__nav a:hover {
+      color: #fff;
+    }
+    .site-header__nav .header-cta {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #f5f3f0;
+      color: #0b0b0d;
+    }
+    .site-header__nav .header-cta:hover {
+      background: #fff;
+      color: #0b0b0d;
+    }
+    @media (max-width: 640px) {
+      .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+      .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
+      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/home.html" class="site-header__logo">vantage.content</a>
+    <nav class="site-header__nav">
+      <a href="/home.html">Home</a>
+      <a href="/careers.html">Careers</a>
+      <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="header-cta">Apply with WhatsApp</a>
+    </nav>
+  </header>
+
+  <section class="hero-full">
+    <div class="hero-full-bg">
+      <img src="/images/pexels-jose-martin-segura-benites-1422456152-27035625.jpg" alt="" />
+    </div>
+    <div class="hero-full-overlay" aria-hidden="true"></div>
+    <div class="hero-full-content">
+      <h1>Broadcast your vision.</h1>
+      <p>Broadcast with the intention you’ve always wanted to. We celebrate the poised creator, the people who strive for their vision and the pioneer who refuses to let their voice be softened by the noise.</p>
+      <p>Vantage was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
+    </div>
+  </section>
+
+  <div class="hero-icons">
+    <div class="icon-card">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 9l6 3-6 3V9z"/></svg>
+      </div>
+      <h3>Live at full quality</h3>
+      <p>Broadcast-grade streaming with minimal delay and studio-level production.</p>
+    </div>
+    <div class="icon-card">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Built for trust</h3>
+      <p>Strong compliance and privacy so every creator is protected.</p>
+    </div>
+    <div class="icon-card">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10"/></svg>
+      </div>
+      <h3>Worldwide network</h3>
+      <p>One ecosystem for talent across Europe, Asia, and the Americas.</p>
+    </div>
+  </div>
+
+  <div class="page-sections">
+  <section class="page-section">
+    <div class="section-image section-image--framed">
+      <div class="img-wrap">
+        <img src="/images/pexels-koolshooters-7346629.jpg" alt="" />
+      </div>
+    </div>
+    <div class="section-text">
+      <h1>Aesthetic precision.</h1>
+      <p>Every frame is considered; every detail serves the story. We treat your output as craft, not content where composition, light, and tone align with your intent. That discipline is what separates a feed from a body of work.</p>
+      <div class="value-item"><h3>Vision</h3><p>We cultivate the beauty in your brilliance, designing a digital stage as sharp and luminous as your ideas.</p></div>
+      <div class="value-item"><h3>Voice</h3><p>We provide the clarity that carries your message, ensuring every word resonates with undisturbed power.</p></div>
+      <div class="value-item"><h3>Vantage</h3><p>We elevate your perspective, positioning you at the summit of your craft with a presence that is felt before a single word is spoken.</p></div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="section-image section-image--align-right">
+      <div class="img-wrap">
+        <img src="/images/pexels-cottonbro-6883810.jpg" alt="" />
+      </div>
+    </div>
+    <div class="section-text">
+      <div class="form-block">
+        <h1>Apply to join our creator roster</h1>
+        <p class="form-intro">We're always looking for talented creators. Share your details and we'll be in touch.</p>
+        <form id="join-form" onsubmit="return false;">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  </div>
+</body>
+</html>

@@ -7,12 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { outfit: ['Outfit', 'sans-serif'] },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             accent: '#8A9BFF',
             charcoal: '#1a1a1a',
@@ -22,15 +22,83 @@
     };
   </script>
   <style>
-    body { font-family: 'Outfit', sans-serif; }
+    body { font-family: 'Inter', sans-serif; }
     details summary::-webkit-details-marker { display: none; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.5rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(11, 11, 13, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .site-header__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f5f3f0;
+      text-decoration: none;
+    }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .site-header__nav a {
+      color: rgba(245, 243, 240, 0.9);
+      text-decoration: none;
+    }
+    .site-header__nav a:hover {
+      color: #fff;
+    }
+    .site-header__nav .header-cta {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #f5f3f0;
+      color: #0b0b0d;
+      text-decoration: none;
+    }
+    .site-header__nav .header-cta:hover {
+      background: #fff;
+      color: #0b0b0d;
+    }
+    @media (max-width: 640px) {
+      .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+      .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
+      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+    }
+    .apply-hero h1 {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-weight: 600 !important;
+      font-size: clamp(2rem, 5.5vw, 4rem) !important;
+      letter-spacing: 0.02em !important;
+      line-height: 1.12 !important;
+    }
+    .apply-hero p {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-weight: 500 !important;
+      font-size: clamp(1rem, 2vw, 1.2rem) !important;
+      letter-spacing: 0.02em !important;
+      line-height: 1.5 !important;
+    }
   </style>
   <!-- Brevo form styles, adjusted to match page design -->
   <style>
-    /* Keep Brevo defaults but visually align with Outfit/Tailwind look */
+    /* Keep Brevo defaults but visually align with Inter/Tailwind look */
     #sib-form-container,
     #sib-form-container * {
-      font-family: 'Outfit', sans-serif !important;
+      font-family: 'Inter', sans-serif !important;
       box-sizing: border-box;
     }
 
@@ -124,21 +192,20 @@
   </style>
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
 </head>
-<body class="bg-white text-charcoal font-outfit antialiased overflow-x-hidden">
+<body class="bg-white text-charcoal font-sans antialiased overflow-x-hidden">
 
-  <!-- Header (ESLstarter-style) -->
-  <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-sm">
-    <div class="max-w-6xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
-      <a href="/" class="text-xl font-bold text-charcoal">Content Streamers</a>
-      <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-[#25D366] px-5 py-3 min-h-[44px] inline-flex items-center justify-center text-white font-semibold text-sm hover:bg-[#20bd5a] hover:scale-105 active:scale-100 transition-all duration-200">
-        Apply using WhatsApp
-      </a>
-    </div>
+  <header class="site-header">
+    <a href="/home.html" class="site-header__logo">vantage.content</a>
+    <nav class="site-header__nav">
+      <a href="/home.html">Home</a>
+      <a href="/careers.html">Careers</a>
+      <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="header-cta">Apply with WhatsApp</a>
+    </nav>
   </header>
 
   <main>
-    <!-- Hero: photo with text overlay -->
-    <section class="relative min-h-[70vh] flex items-end justify-center overflow-hidden">
+    <!-- Hero: photo with text overlay (same font as home "Broadcast your, vision.") -->
+    <section class="apply-hero relative min-h-[70vh] flex items-end justify-center overflow-hidden">
       <img
         src="/images/hero-creator.jpg"
         alt=""
@@ -146,10 +213,10 @@
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
       <div class="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 pb-8 lg:pb-12 pt-24 text-center">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.2] max-w-4xl mx-auto [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
+        <h1 class="text-white max-w-4xl mx-auto [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
           Remote Content Creator and Live Stream Host — Global Work From Anywhere
         </h1>
-        <p class="mt-4 text-base sm:text-lg text-white/95 max-w-2xl mx-auto [text-shadow:0_2px_8px_rgba(0,0,0,0.5)]">
+        <p class="mt-4 text-white/95 max-w-2xl mx-auto [text-shadow:0_2px_8px_rgba(0,0,0,0.5)]">
           Global Remote! Be the vibrant, relatable face of a tech brand. We're looking for an engaging Content Creator & Live Stream Host to stand out on TikTok and grow sales. Competitive pay + commission. Work from anywhere!
         </p>
       </div>
@@ -326,13 +393,12 @@
                     </div>
                   </div>
                   <div style="padding: 8px 0;">
-                    <div class="sib-optin sib-form-block" data-required="true">
+                    <div class="sib-optin sib-form-block">
                       <div class="form__entry entry_mcq">
                         <div class="form__label-row ">
-                          <label class="entry__label" for="OPT_IN" data-required="*">Opt-in</label>
                           <div class="entry__choice">
                             <label>
-                              <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required />
+                              <input type="checkbox" class="input_replaced" value="1" id="CONFIRM_CORRECT" name="CONFIRM_CORRECT" required />
                               <span class="checkbox checkbox_tick_positive"></span>
                               <span><p>I agree that I filled in the information correctly and I am looking for a job as a content creator.</p></span>
                             </label>

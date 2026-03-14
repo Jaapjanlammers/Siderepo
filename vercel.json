@@ -1,6 +1,8 @@
 {
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/thank-you", "destination": "/thank-you.html" }
+    { "source": "/thank-you", "destination": "/thank-you.html" },
+    { "source": "/home", "destination": "/home.html" },
+    { "source": "/careers", "destination": "/careers.html" }
   ]
 }
