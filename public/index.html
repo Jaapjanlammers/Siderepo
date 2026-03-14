@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vision, Voice and Vantage — vantage.content</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; min-height: 100%; background: #0b0b0d; font-family: 'Inter', sans-serif; color: #f5f3f0; overflow-x: hidden; }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.5rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(11, 11, 13, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .site-header__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f5f3f0;
+      text-decoration: none;
+    }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .site-header__nav a {
+      color: rgba(245, 243, 240, 0.9);
+      text-decoration: none;
+    }
+    .site-header__nav a:hover {
+      color: #fff;
+    }
+    .site-header__nav .header-cta {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #f5f3f0;
+      color: #0b0b0d;
+      text-decoration: none;
+    }
+    .site-header__nav .header-cta:hover {
+      background: #fff;
+      color: #0b0b0d;
+    }
+    @media (max-width: 640px) {
+      .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+      .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
+      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+    }
+
+    .landing-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .landing-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .landing-hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .landing-hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(
+        ellipse 100% 100% at 50% 50%,
+        transparent 0%,
+        rgba(11, 11, 13, 0.4) 50%,
+        rgba(11, 11, 13, 0.85) 100%
+      );
+      pointer-events: none;
+    }
+    .landing-hero-tagline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .landing-hero-tagline__words {
+      position: relative;
+      min-height: 5em;
+      width: 100%;
+    }
+    .landing-hero-tagline__word {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: clamp(3.5rem, 7vw, 5.25rem);
+      letter-spacing: 0.02em;
+      line-height: 1.12;
+      color: #f8f6f3;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      white-space: nowrap;
+      opacity: 0;
+    }
+    .landing-hero-tagline__word--vision {
+      animation: word-in 0.5s ease 0.5s forwards, word-out 0.3s ease 1.2s forwards;
+    }
+    .landing-hero-tagline__word--voice {
+      animation: word-in 0.5s ease 1.3s forwards, word-out 0.3s ease 2s forwards;
+    }
+    .landing-hero-tagline__word--vantage {
+      animation: word-in 0.5s ease 2.1s forwards;
+    }
+    .landing-hero-enter {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(248, 246, 243, 0.9);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(248, 246, 243, 0.5);
+      padding-bottom: 0.25rem;
+    }
+    .landing-hero-enter:hover {
+      color: #fff;
+      border-bottom-color: #fff;
+    }
+    @keyframes word-in {
+      to { opacity: 1; }
+    }
+    @keyframes word-out {
+      to { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/home" class="site-header__logo">vantage.content</a>
+    <nav class="site-header__nav">
+      <a href="/home">Home</a>
+      <a href="/careers">Careers</a>
+      <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="header-cta">Apply with WhatsApp</a>
+    </nav>
+  </header>
+
+  <section class="landing-hero">
+    <div class="landing-hero-bg">
+      <img src="/images/Gemini_Generated_Image_hy9jq9hy9jq9hy9j%201.png" alt="" />
+    </div>
+    <div class="landing-hero-overlay" aria-hidden="true"></div>
+    <div class="landing-hero-tagline">
+      <div class="landing-hero-tagline__words">
+        <span class="landing-hero-tagline__word landing-hero-tagline__word--vision" aria-hidden="true">Vision</span>
+        <span class="landing-hero-tagline__word landing-hero-tagline__word--voice" aria-hidden="true">Voice</span>
+        <span class="landing-hero-tagline__word landing-hero-tagline__word--vantage" aria-hidden="true">Vantage</span>
+      </div>
+      <a href="/home" class="landing-hero-enter">Enter</a>
+    </div>
+  </section>
+</body>
+</html>
