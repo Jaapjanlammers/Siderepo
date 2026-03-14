@@ -6,6 +6,46 @@ This document is the single source of truth for the Content Streamers / Vantage.
 
 ---
 
+## 0. Current site implementation (Home & Careers)
+
+The **Home** and **Careers** pages share a consistent, implemented style that differs in part from the Prism Palette below. When touching those pages, follow this.
+
+### Palette in use
+
+| Context | Background | Text / UI |
+|--------|------------|-----------|
+| **Home** | Body `#FFFFFF`; hero has full-bleed image + dark overlay | Hero: `#f8f6f3`; sections: `#080808` / `#333` |
+| **Careers** | Page `#0b0b0d`; cards use `rgba(255,255,255,0.06)` to `rgba(13,13,16,0.9)` | `#f5f3f0` and `rgba(245,243,240,0.84)` |
+| **Header (both)** | `rgba(11,11,13,0.82)` (home) / similar dark (careers), `backdrop-filter: blur(10px)` | Logo & nav: `#f5f3f0`; CTA pill: `#f5f3f0` bg, `#0b0b0d` text |
+
+### Typography (Home & Careers)
+
+- **Display / headlines:** **Cormorant Garamond** — 600, uppercase optional, large clamp (e.g. `clamp(3.5rem, 7vw, 5.25rem)` for hero).
+- **Body & UI:** **Inter** — 400 body, 500/600 for labels and buttons.
+- **Nav & logo:** Cormorant Garamond, 600, letter-spacing ~0.04–0.08em, uppercase.
+
+**Google Fonts (both pages):**
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+```
+
+### Header (shared)
+
+- Sticky/fixed bar; border `1px solid rgba(255,255,255,0.06)`; light blur, dark semi-opaque background.
+- Logo: "vantage.content" (Cormorant Garamond). Nav: Home, Careers, Apply with WhatsApp (pill CTA).
+- No prism dots or glass-tray border; hover = color shift to white.
+
+### What’s not on Home/Careers (vs Prism)
+
+- No site-wide grain, caustic blobs, or prism gradients.
+- No Studio-Metric grid or progress scroll bar.
+- Careers is **dark-themed**; Prism is “90% white base.”
+
+**Reference:** `public/home.html`, `public/careers.html`.
+
+---
+
 ## 1. Expanded Color System: "The Prism Palette"
 
 We keep a ~90% White base but introduce chromatic depth.
@@ -98,9 +138,11 @@ The menu should feel like a **floating piece of polished acrylic**, not a bar.
 
 ---
 
-## 4. Typography: Single Font (Inter)
+## 4. Typography
 
-One font only — **Inter** — for all UI and content. Hierarchy is created by weight and size.
+**Prism / demo pages:** One font — **Inter** — for all UI and content. Hierarchy by weight and size.
+
+**Home & Careers (see §0):** **Inter** for body and UI; **Cormorant Garamond** for display, logo, and nav.
 
 ### Headlines
 
@@ -146,7 +188,9 @@ A mid-page section that defines the brand’s beauty.
 
 ## 7. Reference Files
 
-- **Live demo:** `public/design-system-demo.html` — Prism Palette & High-Gloss component showcase.
-- **Applied on site:** `index.html`, `public/index.html`, `thank-you.html`, `public/thank-you.html`.
+- **Current site (implemented):** `public/home.html`, `public/careers.html` — dark header, Inter + Cormorant Garamond, §0.
+- **Vacancy (apply) page:** `public/careers/remotecontentstreamer/index.html` — URL: `/careers/remotecontentstreamer`.
+- **Thank-you:** `public/thank-you.html` (URL: `/thank-you`). Root `thank-you.html` is optional/local.
+- **Prism / High-Gloss demo:** `public/design-system-demo.html` — optional palette and components.
 
-When in doubt, open the demo page or this file and reuse the tokens and patterns above.
+When in doubt, use §0 for Home and Careers; use the Prism sections above for new “white base” or demo pages.

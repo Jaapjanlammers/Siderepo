@@ -3,6 +3,10 @@
   "rewrites": [
     { "source": "/thank-you", "destination": "/thank-you.html" },
     { "source": "/home", "destination": "/home.html" },
-    { "source": "/careers", "destination": "/careers.html" }
+    { "source": "/careers", "destination": "/careers.html" },
+    { "source": "/careers/remotecontentstreamer", "destination": "/careers/remotecontentstreamer/index.html" }
+  ],
+  "redirects": [
+    { "source": "/remotecontentstreamer", "destination": "/careers/remotecontentstreamer", "permanent": true }
   ]
 }

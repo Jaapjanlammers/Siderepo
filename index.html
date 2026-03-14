@@ -92,6 +92,27 @@
       letter-spacing: 0.02em !important;
       line-height: 1.5 !important;
     }
+    /* All headings: same style as hero title (Cormorant Garamond) */
+    main h2,
+    main h3 {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em !important;
+      line-height: 1.15 !important;
+      color: #1a1a1a;
+    }
+    main h2 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+    }
+    main h3 {
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem) !important;
+    }
+    main details summary {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.02em !important;
+      font-size: clamp(1.1rem, 2vw, 1.35rem) !important;
+    }
   </style>
   <!-- Brevo form styles, adjusted to match page design -->
   <style>
@@ -195,10 +216,10 @@
 <body class="bg-white text-charcoal font-sans antialiased overflow-x-hidden">
 
   <header class="site-header">
-    <a href="/home.html" class="site-header__logo">vantage.content</a>
+    <a href="/home" class="site-header__logo">vantage.content</a>
     <nav class="site-header__nav">
-      <a href="/home.html">Home</a>
-      <a href="/careers.html">Careers</a>
+      <a href="/home">Home</a>
+      <a href="/careers">Careers</a>
       <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="header-cta">Apply with WhatsApp</a>
     </nav>
   </header>
