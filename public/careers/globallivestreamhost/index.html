@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Live Stream Host — Worldwide Remote</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Inter', 'sans-serif'] },
+            colors: {
+              accent: '#0b0b0d',
+              charcoal: '#1a1a1a',
+              cream: '#f5f3f0',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      details summary::-webkit-details-marker { display: none; }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem clamp(1.5rem, 4vw, 3rem);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(11, 11, 13, 0.82);
+        backdrop-filter: blur(10px);
+      }
+      .site-header__logo {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #f5f3f0;
+        text-decoration: none;
+      }
+      .site-header__nav {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .site-header__nav a {
+        color: rgba(245, 243, 240, 0.9);
+        text-decoration: none;
+      }
+      .site-header__nav a:hover {
+        color: #fff;
+      }
+      .site-header__nav .header-cta {
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        background: #f5f3f0;
+        color: #0b0b0d;
+        text-decoration: none;
+      }
+      .site-header__nav .header-cta:hover {
+        background: #fff;
+        color: #0b0b0d;
+      }
+      @media (max-width: 640px) {
+        .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+        .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
+        .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+      }
+      .apply-hero h1 {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-weight: 600 !important;
+        font-size: clamp(2rem, 5.5vw, 4rem) !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.12 !important;
+      }
+      .apply-hero p {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-weight: 500 !important;
+        font-size: clamp(1rem, 2vw, 1.2rem) !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.5 !important;
+      }
+      main h2,
+      main h3 {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.15 !important;
+        color: #1a1a1a;
+      }
+      main h2 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+      }
+      main h3 {
+        font-size: clamp(1.2rem, 2.5vw, 1.5rem) !important;
+      }
+      main details summary {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
+        font-size: clamp(1.1rem, 2vw, 1.35rem) !important;
+      }
+      .apply-wa-cta {
+        background: #f5f3f0;
+        color: #0b0b0d;
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .apply-wa-cta:hover {
+        background: #fff;
+        color: #0b0b0d;
+      }
+      .job-details-card {
+        background: #f8f6f3;
+        border: 1px solid #e8e6e3;
+        border-radius: 0.75rem;
+        padding: 2rem 2.25rem;
+      }
+      @media (min-width: 640px) {
+        .job-details-card { padding: 2.5rem 3rem; }
+      }
+      .job-details-card dl {
+        display: grid;
+        gap: 1.5rem 2rem;
+        flex: 1;
+        min-width: 0;
+      }
+      @media (min-width: 640px) {
+        .job-details-card dl { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (min-width: 1024px) {
+        .job-details-card dl { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+      }
+      .job-details-card .job-detail {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+      }
+      .job-details-card .job-detail-icon {
+        flex-shrink: 0;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        background: rgba(11, 11, 13, 0.06);
+        border: 1px solid rgba(11, 11, 13, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0b0b0d;
+      }
+      .job-details-card .job-detail-icon svg {
+        width: 1.15rem;
+        height: 1.15rem;
+      }
+      .job-details-card dt {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #6b6560;
+        margin-bottom: 0.2rem;
+      }
+      .job-details-card dd {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        letter-spacing: 0.02em;
+        color: #0b0b0d;
+        margin: 0;
+      }
+      .job-details-card .apply-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      @media (min-width: 640px) {
+        .job-details-card .apply-wrap { justify-content: flex-end; width: auto; margin-left: auto; }
+      }
+      .job-details-card .apply-wa-cta {
+        border-radius: 9999px;
+        padding: 0.75rem 1.75rem;
+        font-size: 0.8rem;
+      }
+    </style>
+    <!-- Brevo form styles -->
+    <style>
+      #sib-form-container,
+      #sib-form-container * {
+        font-family: 'Inter', sans-serif !important;
+        box-sizing: border-box;
+      }
+      #sib-container {
+        background-color: #ffffff !important;
+        border-radius: 1rem !important;
+        border-color: #e2e8f0 !important;
+      }
+      #sib-container .sib-form-block p {
+        color: #1f2933 !important;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      #sib-container .sib-form-block:first-child p {
+        font-size: 1.125rem !important;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+      #sib-container .entry__label {
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        color: #111827 !important;
+        margin-bottom: 0.25rem;
+      }
+      #sib-container .input {
+        width: 100%;
+        border-radius: 0.5rem;
+        border: 1px solid #e2e8f0;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.9rem;
+        color: #111827;
+      }
+      #sib-container .input:focus {
+        outline: none;
+        border-color: #0b0b0d;
+        box-shadow: 0 0 0 1px rgba(11, 11, 13, 0.2);
+      }
+      #sib-container input::placeholder,
+      #sib-container textarea::placeholder {
+        color: #9ca3af;
+      }
+      #sib-container .entry__specification {
+        font-size: 0.75rem !important;
+        color: #6b7280 !important;
+      }
+      #sib-container .entry_mcq span {
+        font-size: 0.75rem !important;
+        color: #6b7280 !important;
+      }
+      #sib-container .sib-form-block__button {
+        width: 100%;
+        border-radius: 0.75rem;
+        background-color: #f5f3f0 !important;
+        color: #0b0b0d !important;
+        font-size: 0.9rem !important;
+        font-weight: 600 !important;
+        padding: 0.85rem 1.5rem !important;
+        text-align: center !important;
+        border: none !important;
+        transition: background-color 0.2s ease, transform 0.15s ease;
+      }
+      #sib-container .sib-form-block__button:hover {
+        background-color: #e8e6e3 !important;
+        transform: scale(1.02);
+      }
+      #sib-container .sib-form-block__button:active {
+        transform: scale(0.99);
+      }
+      #sib-container a {
+        text-decoration: underline;
+        color: #0b0b0d;
+      }
+      #sib-form-container .sib-form-message-panel {
+        border-radius: 0.75rem !important;
+        font-size: 0.85rem !important;
+      }
+    </style>
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+  </head>
+  <body class="bg-white text-charcoal font-sans antialiased overflow-x-hidden">
+    <header class="site-header">
+      <a href="/home" class="site-header__logo">vantage.content</a>
+      <nav class="site-header__nav">
+        <a href="/home">Home</a>
+        <a href="/careers">Careers</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero: photo with text overlay -->
+      <section class="apply-hero relative min-h-[70vh] flex items-end justify-center overflow-hidden">
+        <img
+          src="/images/streamning2.png"
+          alt=""
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+        <div class="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 pb-8 lg:pb-12 pt-24 text-center">
+          <h1 class="text-white max-w-4xl mx-auto [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
+            Global Live Stream Host — Worldwide Remote
+          </h1>
+          <p class="mt-4 text-white/95 max-w-2xl mx-auto [text-shadow:0_2px_8px_rgba(0,0,0,0.5)]">
+            The stage is live. The audience is waiting. Are you ready to go on? Become the high-energy Global Live Stream
+            Host driving our live commerce and entertainment experiences across TikTok, Amazon Live, sports betting streams
+            and beyond.
+          </p>
+        </div>
+      </section>
+
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <!-- Job details card + Apply CTA -->
+        <section class="pt-8 lg:pt-12 pb-8 lg:pb-12">
+          <div class="job-details-card flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-8">
+            <dl>
+              <div class="job-detail">
+                <span class="job-detail-icon"
+                  ><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    /><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    /></svg
+                ></span>
+                <div>
+                  <dt>Location</dt>
+                  <dd>Fully Remote — Global</dd>
+                </div>
+              </div>
+              <div class="job-detail">
+                <span class="job-detail-icon"
+                  ><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    /></svg
+                ></span>
+                <div>
+                  <dt>Fee</dt>
+                  <dd>No fee</dd>
+                </div>
+              </div>
+              <div class="job-detail">
+                <span class="job-detail-icon"
+                  ><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    /></svg
+                ></span>
+                <div>
+                  <dt>Duration</dt>
+                  <dd>Part Time or Full Time</dd>
+                </div>
+              </div>
+              <div class="job-detail">
+                <span class="job-detail-icon"
+                  ><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    ><path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    /></svg
+                ></span>
+                <div>
+                  <dt>Date</dt>
+                  <dd>Immediate</dd>
+                </div>
+              </div>
+            </dl>
+            <div class="apply-wrap">
+              <a
+                href="https://wa.me/31644757190"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="apply-wa-cta inline-block transition-all duration-200 text-center"
+              >
+                Apply using WhatsApp
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Intro -->
+        <div class="pb-12 lg:pb-16 relative text-center">
+          <p
+            class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-charcoal leading-[1.15] max-w-4xl mx-auto"
+          >
+            <span
+              class="text-slate-300 select-none text-[1.2em] sm:text-[1.3em] md:text-[1.4em] lg:text-[1.5em] align-top inline-block"
+              >"</span
+            ><span class="inline"
+              >Your world is unfiltered, real-time, and high-stakes. You command the countdown, the chat, and the
+              energy turning every live broadcast into an event people plan their day around.</span
+            ><span
+              class="text-slate-300 select-none text-[1.2em] sm:text-[1.3em] md:text-[1.4em] lg:text-[1.5em] align-top inline-block"
+              >"</span
+            >
+          </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 pb-12 lg:pb-16">
+          <!-- Apply form: right column on desktop, second on mobile -->
+          <aside class="w-full lg:w-[340px] flex-shrink-0 order-2 lg:order-2 lg:sticky lg:top-24 lg:self-start">
+            <div id="apply" class="rounded-2xl border border-white/60 bg-white/70 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-4">
+              <div class="sib-form" style="text-align: center; background-color: transparent;">
+                <div id="sib-form-container" class="sib-form-container">
+                  <div id="error-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;">
+                    <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                      <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                        <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
+                      </svg>
+                      <span class="sib-form-message-panel__inner-text">Your subscription could not be saved. Please try again.</span>
+                    </div>
+                  </div>
+                  <div></div>
+                  <div id="success-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66;max-width:540px;">
+                    <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                      <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                        <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
+                      </svg>
+                      <span class="sib-form-message-panel__inner-text">Your subscription has been successful.</span>
+                    </div>
+                  </div>
+                  <div></div>
+                  <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:14px; border-width:1px; border-color:#C0CCD9; border-style:solid; direction:ltr">
+                    <form id="sib-form" method="POST" action="https://6976f503.sibforms.com/serve/MUIFACRmZcjl7p9ICS8BjPb76yHCXl4Nd5ASxPXrxnNi2WCDy4px6UirhF0ZYj5ZhCqzaNPYua_YxewdY5jJICemn_ASyqRgg5EeUTvMjFS3wJ9RCXvr5H3ulPEVJYKllqcLz6uIKpCX0xM6yKPD5f_lA8S0Qr552ZVtwauYSskOpXpC9RSHaoA1pPuXA7eksL5u0r9wX-a-DMnUzQ==" data-type="subscription">
+                      <div style="padding: 8px 0;">
+                        <div class="sib-form-block" style="text-align:left; background-color:transparent;">
+                          <p>Application form</p>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-form-block" style="text-align:left; background-color:transparent;">
+                          <div class="sib-text-form-block">
+                            <p>Ready to take the next steps? Start here with the basics. We’ll follow up via email so you can tell us more about your vision and officially send in your application.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-input sib-form-block">
+                          <div class="form__entry entry_block">
+                            <div class="form__label-row ">
+                              <label class="entry__label" for="FIRSTNAME" data-required="*">First name</label>
+                              <div class="entry__field">
+                                <input class="input " maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="" data-required="true" required />
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-input sib-form-block">
+                          <div class="form__entry entry_block">
+                            <div class="form__label-row ">
+                              <label class="entry__label" for="LASTNAME" data-required="*">Last name</label>
+                              <div class="entry__field">
+                                <input class="input " maxlength="200" type="text" id="LASTNAME" name="LASTNAME" autocomplete="off" placeholder="" data-required="true" required />
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-input sib-form-block">
+                          <div class="form__entry entry_block">
+                            <div class="form__label-row ">
+                              <label class="entry__label" for="EMAIL" data-required="*">Email</label>
+                              <div class="entry__field">
+                                <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="" data-required="true" required />
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-input sib-form-block">
+                          <div class="form__entry entry_block">
+                            <div class="form__label-row ">
+                              <label class="entry__label" for="SOCIALMEDIAHANDLE" data-required="*">Your go-to social media</label>
+                              <div class="entry__field">
+                                <input class="input " maxlength="200" type="text" id="SOCIALMEDIAHANDLE" name="SOCIALMEDIAHANDLE" autocomplete="off" placeholder="@Social_handle" data-required="true" required />
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-optin sib-form-block">
+                          <div class="form__entry entry_mcq">
+                            <div class="form__label-row ">
+                              <div class="entry__choice">
+                                <label>
+                                  <input type="checkbox" class="input_replaced" value="1" id="OVER18" name="OVER18" required />
+                                  <span class="checkbox checkbox_tick_positive"></span>
+                                  <span><p>I confirm that I am 20 or older</p></span>
+                                </label>
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-optin sib-form-block">
+                          <div class="form__entry entry_mcq">
+                            <div class="form__label-row ">
+                              <div class="entry__choice">
+                                <label>
+                                  <input type="checkbox" class="input_replaced" value="1" id="CONFIRM_CORRECT" name="CONFIRM_CORRECT" required />
+                                  <span class="checkbox checkbox_tick_positive"></span>
+                                  <span><p>I agree that I filled in the information correctly and I am looking for a job as a content creator.</p></span>
+                                </label>
+                              </div>
+                            </div>
+                            <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="padding: 8px 0;">
+                        <div class="sib-form-block" style="text-align: left">
+                          <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                            <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                              <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                            </svg>
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                      <input type="text" name="email_address_check" value="" class="input--hidden" />
+                      <input type="hidden" name="locale" value="en" />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main content -->
+          <div class="flex-1 min-w-0 order-3 lg:order-1">
+            <!-- Are You Our Next Global Host? -->
+            <section class="mb-12">
+              <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mb-4">Are You Our Next Global Live Stream Host?</h2>
+              <p class="text-slate-700 mb-4">
+                We are seeking a Live Broadcast Host who thrives on the adrenaline of a real-time countdown, a surging
+                viewer count, and a live chat that never stops moving. If the red "LIVE" icon feels like home, this role
+                is for you.
+              </p>
+              <p class="text-slate-700 mb-4">
+                As our Global Live Stream Host, you will be the high-energy personality driving our social presence across
+                TikTok, Amazon Live, sports betting streams, and more. You won’t just present products—you will create
+                shows, experiences, and memorable moments that viewers return to again and again.
+              </p>
+              <p class="text-slate-700">
+                This is your stage to build a powerful on-camera brand, connect with a global audience in real time, and
+                shape the next generation of live digital entertainment.
+              </p>
+            </section>
+
+            <!-- Why You'll Love This Stage -->
+            <section class="mb-12">
+              <div class="w-full max-w-2xl mx-auto mb-8">
+                <img
+                  src="/images/streaming.png"
+                  alt="Live streaming studio setup"
+                  class="w-full h-auto rounded-2xl object-cover"
+                />
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mb-6">Why You’ll Love This Stage</h2>
+              <ul class="space-y-4">
+                <li class="flex gap-4">
+                  <span
+                    class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"
+                  >
+                    <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0h.5a2.5 2.5 0 002.5-2.5V3.935M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </span>
+                  <div>
+                    <strong class="text-charcoal">Broadcast From Anywhere:</strong> Work from your home studio, a content
+                    house, or a different city every month. We care about your performance and professionalism, not your
+                    office cubicle.
+                  </div>
+                </li>
+                <li class="flex gap-4">
+                  <span
+                    class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"
+                  >
+                    <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </span>
+                  <div>
+                    <strong class="text-charcoal">Professional Creative Support:</strong> Focus on hosting. Our in-house
+                    team of strategists, producers, and editors manage scheduling, analytics, and repurposing highlights
+                    into short-form content.
+                  </div>
+                </li>
+                <li class="flex gap-4">
+                  <span
+                    class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"
+                  >
+                    <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </span>
+                  <div>
+                    <strong class="text-charcoal">Global Recognition:</strong> Become the recognizable on-camera talent for
+                    a fast-scaling international brand, with viewers tuning in from across time zones and platforms.
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <!-- Your Mission: Command the Live Feed -->
+            <section class="mb-12">
+              <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mb-4">Your Mission: Command the Live Feed</h2>
+              <p class="text-slate-700 mb-6">
+                As our “Master of Ceremonies” for a new era of digital experiences, you own the room—even when that room is
+                a global live chat and a camera lens.
+              </p>
+              <div class="space-y-8">
+                <div class="flex gap-4">
+                  <span class="flex-shrink-0 w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 5.25v13.5L5.25 12l10.5-6.75zM18 6v12" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 class="text-xl font-bold text-charcoal mb-2">Own the Spotlight</h3>
+                    <ul class="text-slate-700 space-y-1 list-disc list-inside">
+                      <li>
+                        Lead high-octane live sessions where you are the primary entertainer, not just a presenter.
+                      </li>
+                      <li>
+                        Maintain “main character energy” from the first second of the stream to the final sign-off—no dead
+                        air, no awkward fade-outs.
+                      </li>
+                      <li>Create live moments that feel like appointment viewing, not background noise.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="flex-shrink-0 w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6m-4-8V5a2 2 0 00-2-2H7l-4 4v9a2 2 0 002 2h6m6-8h-5a2 2 0 00-2 2v4m7 4l-3-3m0 0l-3 3m3-3v-4" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 class="text-xl font-bold text-charcoal mb-2">Architect Real-Time Community</h3>
+                    <ul class="text-slate-700 space-y-1 list-disc list-inside">
+                      <li>
+                        Turn a stream of usernames into a real community by calling people out, responding in real time,
+                        and building running jokes and rituals.
+                      </li>
+                      <li>
+                        Transform “lurkers” into active participants through questions, polls, shoutouts, and interactive
+                        segments.
+                      </li>
+                      <li>
+                        Keep the chat feeling like a fast-moving VIP room where everyone wants to stay just a little bit
+                        longer.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="flex-shrink-0 w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11h4m-4 4h8M9 7h6M5 4h14a2 2 0 012 2v11.5a1.5 1.5 0 01-2.53 1.06L16 16H5a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 class="text-xl font-bold text-charcoal mb-2">Interactive Storytelling & Live Drops</h3>
+                    <ul class="text-slate-700 space-y-1 list-disc list-inside">
+                      <li>
+                        Host product demonstrations and live segments that feel like a cross between a late-night talk
+                        show and an exclusive VIP launch party.
+                      </li>
+                      <li>
+                        Master the art of the “Live Drop” by building anticipation, structuring reveals, and guiding viewers
+                        toward key calls-to-action.
+                      </li>
+                      <li>
+                        Use narrative, pacing, and emotion—not scripts—to keep viewers watching and buying in real time.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="flex-shrink-0 w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 class="text-xl font-bold text-charcoal mb-2">Energy Reset Mastery</h3>
+                    <ul class="text-slate-700 space-y-1 list-disc list-inside">
+                      <li>
+                        Reset the energy every few minutes so new viewers dropping in instantly understand the vibe and
+                        want to stay.
+                      </li>
+                      <li>
+                        Re-introduce the show, the offer, and the “why now” at the right cadences without sounding repetitive
+                        to long-time viewers.
+                      </li>
+                      <li>
+                        Read the room (and the chat) in real time, adjusting your tone, pace, and structure to keep
+                        engagement high.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- The Talent We Crave -->
+            <section class="mb-12">
+              <h2 class="text-2xl sm:text-3xl font-bold text-charcoal mb-4">The Talent We Crave</h2>
+              <p class="text-slate-700 mb-8">
+                We care more about your live presence and performance instincts than about traditional CVs or degrees.
+              </p>
+              <ul class="space-y-6 list-disc pl-6">
+                <li>
+                  <h3 class="text-lg font-semibold text-charcoal mb-1">Exceptional On-Camera Presence</h3>
+                  <p class="text-slate-700">
+                    You have professional-grade stamina and charisma. You’re comfortable “filling the air” with engaging,
+                    unscripted storytelling for extended live sessions.
+                  </p>
+                </li>
+                <li>
+                  <h3 class="text-lg font-semibold text-charcoal mb-1">Social Commerce Intuition</h3>
+                  <p class="text-slate-700">
+                    You understand the psychology of the “Live Buy”—how urgency, trust, and excitement interact in a fast,
+                    high-energy environment.
+                  </p>
+                </li>
+                <li>
+                  <h3 class="text-lg font-semibold text-charcoal mb-1">Multi-Tasking Mastery</h3>
+                  <p class="text-slate-700">
+                    You can read a fast-moving chat, respond to viewers by name, track performance, and continue a physical
+                    product demo simultaneously—without losing your flow.
+                  </p>
+                </li>
+                <li>
+                  <h3 class="text-lg font-semibold text-charcoal mb-1">Fluent English</h3>
+                  <p class="text-slate-700">
+                    You have outstanding verbal communication skills and can entertain and explain clearly to a diverse
+                    international audience.
+                  </p>
+                </li>
+              </ul>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Brevo form scripts -->
+    <script>
+      window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+      window.LOCALE = 'en';
+      window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+      window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
+      window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+      window.INVALID_DATE = "Please enter a valid date";
+      window.translation = {
+        common: {
+          selectedList: '{quantity} list selected',
+          selectedLists: '{quantity} lists selected',
+          selectedOption: '{quantity} selected',
+          selectedOptions: '{quantity} selected',
+        }
+      };
+      var AUTOHIDE = Boolean(0);
+    </script>
+    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  </body>
+</html>
+
