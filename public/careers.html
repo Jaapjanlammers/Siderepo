@@ -6,9 +6,16 @@
   <title>Careers — vantage.content</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --section-padding: 120px;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     html, body {
       width: 100%;
       min-height: 100%;
@@ -23,45 +30,55 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      padding: 1rem clamp(1.5rem, 4vw, 3rem);
+      padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 55%);
-      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(11, 11, 13, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: padding 0.2s ease, background 0.2s ease;
+    }
+    .site-header.is-shrunk {
+      padding: 0.75rem clamp(1.5rem, 4vw, 3rem);
+      background: rgba(11, 11, 13, 0.9);
     }
     .site-header__logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
       color: #f5f3f0;
       text-decoration: none;
+      transition: opacity 0.2s ease;
     }
+    .site-header__logo:hover { opacity: 0.85; }
     .site-header__nav {
       display: flex;
       align-items: center;
       gap: 1.75rem;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
     }
     .site-header__nav a {
       color: rgba(245,243,240,0.9);
       text-decoration: none;
+      transition: color 0.2s ease;
     }
-    .site-header__nav a:hover {
-      color: #ffffff;
-    }
+    .site-header__nav a:hover { color: #fff; }
     .site-header__nav .header-cta {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.25rem;
       border-radius: 999px;
-      background: #f5f3f0;
-      color: #050506;
+      background: var(--accent);
+      color: #fff;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .site-header__nav .header-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px var(--accent-glow);
     }
 
     .careers-hero {
@@ -69,7 +86,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(3rem, 8vh, 5rem) clamp(1.75rem, 5vw, 4rem) 4rem;
+      padding: var(--section-padding) clamp(1.75rem, 5vw, 4rem);
     }
     .careers-hero-inner {
       max-width: 1040px;
@@ -83,18 +100,17 @@
     }
 
     .careers-copy h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(3.5rem, 7vw, 5.25rem);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1.15;
-      margin-bottom: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 7vw, 4.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
     }
     .careers-copy p {
-      font-size: 0.98rem;
+      font-size: 1.0625rem;
       line-height: 1.7;
-      color: rgba(245,243,240,0.84);
+      color: rgba(245,243,240,0.88);
       max-width: 36rem;
     }
 
@@ -122,22 +138,28 @@
       border-radius: 0.9rem;
       background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(13,13,16,0.9));
       border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .careers-icon:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      border-color: rgba(99, 102, 241, 0.3);
     }
     .careers-icon-badge {
       flex-shrink: 0;
       width: 40px;
       height: 40px;
-      border-radius: 999px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(245,243,240,0.08);
-      border: 1px solid rgba(245,243,240,0.2);
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.35);
     }
     .careers-icon-badge svg {
       width: 22px;
       height: 22px;
-      stroke: rgba(245,243,240,0.9);
+      stroke: #a5b4fc;
     }
     .careers-icon-label {
       font-size: 0.9rem;
@@ -156,11 +178,12 @@
       border-radius: 0.9rem;
       background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(13,13,16,0.9));
       border: 1px solid rgba(255,255,255,0.08);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .careers-vacancy:hover {
-      border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(99, 102, 241, 0.15);
     }
     .careers-vacancy-link {
       flex: 1;
@@ -179,21 +202,21 @@
       display: inline-block;
       margin-top: 0.5rem;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.06em;
-      color: rgba(245,243,240,0.7);
+      color: #a5b4fc;
       text-decoration: underline;
       text-underline-offset: 3px;
+      transition: color 0.2s ease;
     }
     .careers-vacancy-link:hover::after {
-      color: #f5f3f0;
+      color: #c7d2fe;
     }
     .careers-vacancy-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
       font-size: 1.35rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      letter-spacing: -0.01em;
       color: #f5f3f0;
       margin-bottom: 0.35rem;
     }
@@ -205,26 +228,36 @@
     }
     .careers-vacancy-cta {
       flex-shrink: 0;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.25rem;
       border-radius: 999px;
-      background: #f5f3f0;
-      color: #0b0b0d;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
       font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
     .careers-vacancy-cta:hover {
-      background: #fff;
-      color: #0b0b0d;
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+      color: #fff;
+    }
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     @media (max-width: 640px) {
-      .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+      .site-header__nav { gap: 1rem; font-size: 0.8rem; }
       .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
-      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1.25rem; display: inline-flex; align-items: center; justify-content: center; }
       .careers-vacancy {
         flex-direction: column;
         align-items: stretch;
@@ -241,8 +274,8 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <a href="/home" class="site-header__logo">vantage.content</a>
+  <header class="site-header" id="careers-header">
+    <a href="/home" class="site-header__logo" style="color: #6366f1;">vantage.content</a>
     <nav class="site-header__nav">
       <a href="/home">Home</a>
       <a href="/careers">Careers</a>
@@ -251,11 +284,11 @@
 
   <main class="careers-hero">
     <div class="careers-hero-inner">
-      <div class="careers-copy">
+      <div class="careers-copy animate-on-scroll">
         <h1>Build Your Career in the Digital Spotlight</h1>
         <p>We are recruiting globally for our 2025 expansion. Whether you're in front of the camera or behind the scenes, we offer a professional path in the streaming industry.</p>
       </div>
-      <div class="careers-icons">
+      <div class="careers-icons animate-on-scroll">
         <div class="careers-icon">
           <div class="careers-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
           <div class="careers-icon-label">Fully online remote work</div>
@@ -281,13 +314,13 @@
           <div class="careers-icon-label">Dedicated support team</div>
         </div>
       </div>
-      <div class="careers-vacancy">
+      <div class="careers-vacancy animate-on-scroll">
         <a href="/careers/remotecontentstreamer" class="careers-vacancy-link">
           <div class="careers-vacancy-title">Remote content creator</div>
           <div class="careers-vacancy-sub">Live stream host & content creator — global, remote. Apply now.</div>
         </a>
       </div>
-      <div class="careers-vacancy" style="margin-top: 1.5rem;">
+      <div class="careers-vacancy animate-on-scroll" style="margin-top: 1.5rem;">
         <a href="/careers/globallivestreamhost" class="careers-vacancy-link">
           <div class="careers-vacancy-title">Global live stream host</div>
           <div class="careers-vacancy-sub">High-energy global live host — TikTok, Amazon Live & more.</div>
@@ -295,6 +328,21 @@
       </div>
     </div>
   </main>
+  <script>
+    (function() {
+      var header = document.getElementById('careers-header');
+      function onScroll() {
+        var top = window.pageYOffset || document.documentElement.scrollTop;
+        if (top > 60) header.classList.add('is-shrunk'); else header.classList.remove('is-shrunk');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+      }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+      document.querySelectorAll('.animate-on-scroll').forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>
 

@@ -6,18 +6,86 @@
   <title>Design the Broadcast — Vantage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --text: #0f0f0f;
+      --text-muted: #525252;
+      --section-padding: 120px;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; min-height: 100%; background: #FFFFFF; font-family: 'Inter', sans-serif; color: #080808; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
+    html, body { width: 100%; min-height: 100%; background: #FFFFFF; font-family: 'Inter', sans-serif; color: var(--text); overflow-x: hidden; }
+
+    /* Sticky glassmorphism header – shrinks on scroll */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: padding 0.2s ease, background 0.2s ease;
+    }
+    .site-header.is-shrunk {
+      padding: 0.75rem clamp(1.5rem, 4vw, 3rem);
+      background: rgba(255, 255, 255, 0.85);
+    }
+    .site-header__logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .site-header__logo:hover { opacity: 0.8; }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    .site-header__nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .site-header__nav a:hover { color: var(--text); }
+    .site-header__nav .header-cta {
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .site-header__nav .header-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
 
     .hero-full {
       position: relative;
       min-height: 100vh;
       display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
+      text-align: center;
     }
     .hero-full-bg {
       position: absolute;
@@ -36,42 +104,57 @@
       inset: 0;
       z-index: 1;
       background: radial-gradient(
-        ellipse 140% 130% at 88% 12%,
+        ellipse 120% 100% at 50% 50%,
         transparent 0%,
-        transparent 22%,
-        rgba(12, 11, 10, 0.25) 50%,
-        rgba(12, 11, 10, 0.6) 75%,
-        rgba(12, 11, 10, 0.75) 100%
+        transparent 30%,
+        rgba(12, 11, 10, 0.4) 70%,
+        rgba(12, 11, 10, 0.85) 100%
       );
       pointer-events: none;
     }
     .hero-full-content {
       position: relative;
       z-index: 2;
-      padding: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 5vw, 4rem);
-      max-width: 520px;
+      padding: clamp(3rem, 10vw, 6rem) clamp(2rem, 6vw, 4rem);
+      max-width: 720px;
+      margin: 0 auto;
     }
     .hero-full-content h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(3.5rem, 7vw, 5.25rem);
-      letter-spacing: 0.02em;
-      line-height: 1.12;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.08;
       color: #f8f6f3;
-      margin-bottom: 1.25rem;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
     .hero-full-content p {
-      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      font-size: clamp(1rem, 2vw, 1.2rem);
       line-height: 1.65;
       color: rgba(248, 246, 243, 0.92);
       margin-top: 0;
       margin-bottom: 1rem;
       font-weight: 400;
-      letter-spacing: 0.01em;
     }
-    .hero-full-content p:last-child {
-      margin-bottom: 0;
+    .hero-full-content p:last-of-type { margin-bottom: 2rem; }
+    .hero-cta {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
     }
 
     .hero-scroll-hint {
@@ -110,7 +193,9 @@
       display: flex;
       flex-wrap: wrap;
       min-height: 100vh;
+      padding: var(--section-padding) 0;
     }
+    .page-section:first-of-type { padding-top: var(--section-padding); }
     .page-sections .page-section:nth-child(odd) {
       flex-direction: row;
     }
@@ -184,19 +269,20 @@
 
     .section-text h1,
     .section-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: clamp(3.5rem, 7vw, 5.25rem);
-      letter-spacing: 0.02em;
-      line-height: 1.15;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1.12;
       max-width: 420px;
+      color: var(--text);
     }
     .section-text p {
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 1.0625rem;
+      line-height: 1.65;
       margin-top: 1rem;
       max-width: 420px;
-      color: #333;
+      color: var(--text-muted);
     }
     .section-text .pillars-row {
       display: flex;
@@ -247,6 +333,9 @@
       color: #555;
       font-family: 'Inter', sans-serif;
     }
+    .section-text .value-item h3 .accent-vantage {
+      color: #6366f1 !important;
+    }
     .section-text .value-item p {
       margin-top: 0;
       margin-bottom: 0;
@@ -259,9 +348,11 @@
       max-width: 380px;
     }
     .form-block h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
       margin-bottom: 0.5rem;
+      color: var(--text);
     }
     .form-block .form-intro {
       font-size: 0.9rem;
@@ -271,32 +362,42 @@
     }
     .form-block input {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 1rem 1.25rem;
       margin-bottom: 0.75rem;
-      border: 1px solid #E5E5E5;
+      border: 2px solid #e5e5e5;
+      border-radius: 12px;
       font-family: inherit;
-      font-size: 15px;
+      font-size: 16px;
       background: #fff;
+      min-height: 52px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .form-block input:focus {
       outline: none;
-      border-color: #080808;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
     }
     .form-block button {
       width: 100%;
       padding: 1rem 1.5rem;
-      margin-top: 0.25rem;
-      background: #080808;
+      margin-top: 0.5rem;
+      min-height: 52px;
+      background: var(--accent);
       color: #fff;
       border: none;
-      font-family: inherit;
-      font-weight: 500;
-      font-size: 12px;
-      letter-spacing: 0.1em;
+      border-radius: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
       cursor: pointer;
-      transition: opacity 0.3s;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .form-block button:hover { opacity: 0.85; }
+    .form-block button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
 
     .hero-icons {
       display: grid;
@@ -304,7 +405,7 @@
       gap: 0;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 3rem 2rem 4rem;
+      padding: var(--section-padding) 2rem;
       border-top: 1px solid #e8e8e8;
       border-bottom: 1px solid #e8e8e8;
     }
@@ -315,6 +416,11 @@
       text-align: center;
       padding: 0 2rem;
       border-right: 1px solid #e8e8e8;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero-icons .icon-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
     }
     .hero-icons .icon-card:last-child {
       border-right: none;
@@ -335,17 +441,22 @@
       align-items: center;
       justify-content: center;
     }
+    .hero-icons .icon-wrap {
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 16px;
+    }
     .hero-icons .icon-wrap svg {
       width: 48px;
       height: 48px;
-      stroke: #080808;
+      stroke: var(--accent);
     }
     .hero-icons .icon-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
       letter-spacing: -0.01em;
       margin-bottom: 0.5rem;
-      color: #080808;
+      color: var(--text);
     }
     .hero-icons .icon-card p {
       font-size: 0.9rem;
@@ -355,69 +466,30 @@
       margin: 0 auto;
     }
 
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem clamp(1.5rem, 4vw, 3rem);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(11, 11, 13, 0.82);
-      backdrop-filter: blur(10px);
-    }
-    .site-header__logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #f5f3f0;
-      text-decoration: none;
-    }
-    .site-header__nav {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-    }
-    .site-header__nav a {
-      color: rgba(245, 243, 240, 0.9);
-      text-decoration: none;
-    }
-    .site-header__nav a:hover {
-      color: #fff;
-    }
-    .site-header__nav .header-cta {
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      background: #f5f3f0;
-      color: #0b0b0d;
-    }
-    .site-header__nav .header-cta:hover {
-      background: #fff;
-      color: #0b0b0d;
-    }
     @media (max-width: 640px) {
-      .site-header__nav { gap: 1rem; font-size: 0.75rem; }
+      .site-header__nav { gap: 1rem; font-size: 0.8rem; }
       .site-header__nav a { padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
-      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1rem; display: inline-flex; align-items: center; justify-content: center; }
+      .site-header__nav .header-cta { min-height: 44px; padding: 0.6rem 1.25rem; display: inline-flex; align-items: center; justify-content: center; }
+    }
+
+    /* Fade-in-up on scroll */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <a href="/home" class="site-header__logo">vantage.content</a>
+  <header class="site-header" id="site-header">
+    <a href="/home" class="site-header__logo" style="color: #6366f1;">vantage.content</a>
     <nav class="site-header__nav">
       <a href="/home">Home</a>
-      <a href="/careers">Careers</a>
+      <a href="/careers" class="header-cta">View open roles</a>
     </nav>
   </header>
 
@@ -429,7 +501,8 @@
     <div class="hero-full-content">
       <h1>Broadcast your vision.</h1>
       <p>Broadcast with the intention you’ve always wanted to. We celebrate the poised creator, the people who strive for their vision and the pioneer who refuses to let their voice be softened by the noise.</p>
-      <p>Vantage was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
+      <p><span style="color: #6366f1;">Vantage</span> was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
+      <a href="/careers" class="hero-cta">Get started</a>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span class="hero-scroll-hint__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>
@@ -437,7 +510,7 @@
     </div>
   </section>
 
-  <div class="hero-icons">
+  <div class="hero-icons animate-on-scroll">
     <div class="icon-card">
       <div class="icon-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 9l6 3-6 3V9z"/></svg>
@@ -462,7 +535,7 @@
   </div>
 
   <div class="page-sections">
-  <section class="page-section">
+  <section class="page-section animate-on-scroll">
     <div class="section-image section-image--framed">
       <div class="img-wrap">
         <img src="/images/10.jpg" alt="" />
@@ -473,10 +546,10 @@
       <p>Every frame is considered; every detail serves the story. We treat your output as craft, not content where composition, light, and tone align with your intent. That discipline is what separates a feed from a body of work.</p>
       <div class="value-item"><h3>Vision</h3><p>We cultivate the beauty in your brilliance, designing a digital stage as sharp and luminous as your ideas.</p></div>
       <div class="value-item"><h3>Voice</h3><p>We provide the clarity that carries your message, ensuring every word resonates with undisturbed power.</p></div>
-      <div class="value-item"><h3>Vantage</h3><p>We elevate your perspective, positioning you at the summit of your craft with a presence that is felt before a single word is spoken.</p></div>
+      <div class="value-item"><h3><span class="accent-vantage">Vantage</span></h3><p>We elevate your perspective, positioning you at the summit of your craft with a presence that is felt before a single word is spoken.</p></div>
     </div>
   </section>
-  <section class="page-section">
+  <section class="page-section animate-on-scroll">
     <div class="section-image section-image--align-right">
       <div class="img-wrap">
         <img src="/images/8.jpg" alt="" />
@@ -486,16 +559,36 @@
       <div class="form-block">
         <h2>Apply to join the roster</h2>
         <p class="form-intro">Interested in working with vantage.content? Visit our Careers page to see open roles and apply in detail.</p>
-        <button type="button" onclick="window.location.href='/careers/remotecontentstreamer';" style="margin-top: 0.75rem; padding: 0.85rem 1.75rem; border-radius: 999px; border: 1px solid #080808; background: #080808; color: #fff; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;">View vacancy</button>
+        <button type="button" onclick="window.location.href='/careers';" style="margin-top: 0.75rem;">View open roles</button>
       </div>
     </div>
   </section>
   </div>
 
-  <footer style="border-top: 1px solid rgba(0,0,0,0.06); margin-top: 3rem; padding: 1.5rem 2.5rem; font-size: 0.8rem; color: #555; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+  <footer class="animate-on-scroll" style="border-top: 1px solid rgba(0,0,0,0.06); margin-top: 0; padding: calc(var(--section-padding) / 2) 2.5rem; font-size: 0.875rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
     <span>vantage.content — Content Creator Management</span>
-    <span>Based in Amsterdam, The Netherlands · <a href="mailto:markammand@gmail.com" style="color: inherit; text-decoration: underline;">markammand@gmail.com</a></span>
+    <span>Based in Amsterdam, The Netherlands · <a href="mailto:markammand@gmail.com" style="color: var(--accent); text-decoration: none;">markammand@gmail.com</a></span>
   </footer>
 
+  <script>
+    (function() {
+      var header = document.getElementById('site-header');
+      var lastScroll = 0;
+      function onScroll() {
+        var top = window.pageYOffset || document.documentElement.scrollTop;
+        if (top > 80) header.classList.add('is-shrunk'); else header.classList.remove('is-shrunk');
+        lastScroll = top;
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('is-visible');
+        });
+      }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+      document.querySelectorAll('.animate-on-scroll').forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
 </body>
 </html>
