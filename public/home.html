@@ -474,13 +474,33 @@
 
     /* Fade-in-up on scroll */
     .animate-on-scroll {
+      position: relative;
       opacity: 0;
       transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      --animation-tint: var(--accent);
     }
     .animate-on-scroll.is-visible {
       opacity: 1;
       transform: translateY(0);
+    }
+    /* Optional: subtle tint overlay that fades out (change --animation-tint to alter colour) */
+    .animate-on-scroll::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--animation-tint);
+      opacity: 0.08;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      border-radius: inherit;
+    }
+    .animate-on-scroll.is-visible::before {
+      opacity: 0;
+    }
+    /* Force Vantage accent – last in cascade so it wins */
+    .page-sections .section-text .value-item:last-of-type h3 span {
+      color: #6366f1 !important;
     }
   </style>
 </head>
@@ -502,7 +522,6 @@
       <h1>Broadcast your vision.</h1>
       <p>Broadcast with the intention you’ve always wanted to. We celebrate the poised creator, the people who strive for their vision and the pioneer who refuses to let their voice be softened by the noise.</p>
       <p><span style="color: #6366f1;">Vantage</span> was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
-      <a href="/careers" class="hero-cta">Get started</a>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span class="hero-scroll-hint__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>
@@ -546,7 +565,7 @@
       <p>Every frame is considered; every detail serves the story. We treat your output as craft, not content where composition, light, and tone align with your intent. That discipline is what separates a feed from a body of work.</p>
       <div class="value-item"><h3>Vision</h3><p>We cultivate the beauty in your brilliance, designing a digital stage as sharp and luminous as your ideas.</p></div>
       <div class="value-item"><h3>Voice</h3><p>We provide the clarity that carries your message, ensuring every word resonates with undisturbed power.</p></div>
-      <div class="value-item"><h3><span class="accent-vantage">Vantage</span></h3><p>We elevate your perspective, positioning you at the summit of your craft with a presence that is felt before a single word is spoken.</p></div>
+      <div class="value-item"><h3><span style="color: #6366f1;">Vantage</span></h3><p>We elevate your perspective, positioning you at the summit of your craft with a presence that is felt before a single word is spoken.</p></div>
     </div>
   </section>
   <section class="page-section animate-on-scroll">
@@ -566,8 +585,7 @@
   </div>
 
   <footer class="animate-on-scroll" style="border-top: 1px solid rgba(0,0,0,0.06); margin-top: 0; padding: calc(var(--section-padding) / 2) 2.5rem; font-size: 0.875rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
-    <span>vantage.content — Content Creator Management</span>
-    <span>Based in Amsterdam, The Netherlands · <a href="mailto:markammand@gmail.com" style="color: var(--accent); text-decoration: none;">markammand@gmail.com</a></span>
+    <span>Based in Amsterdam, The Netherlands</span>
   </footer>
 
   <script>
