@@ -117,10 +117,88 @@
     .apply-wa-cta {
       background: #f5f3f0;
       color: #0b0b0d;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
     .apply-wa-cta:hover {
       background: #fff;
       color: #0b0b0d;
+    }
+    /* Job details: luxurious cream/warm card (no blue/slate) */
+    .job-details-card {
+      background: #f8f6f3;
+      border: 1px solid #e8e6e3;
+      border-radius: 0.75rem;
+      padding: 2rem 2.25rem;
+    }
+    @media (min-width: 640px) {
+      .job-details-card { padding: 2.5rem 3rem; }
+    }
+    .job-details-card dl {
+      display: grid;
+      gap: 1.5rem 2rem;
+      flex: 1;
+      min-width: 0;
+    }
+    @media (min-width: 640px) {
+      .job-details-card dl { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .job-details-card dl { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    }
+    .job-details-card .job-detail {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .job-details-card .job-detail-icon {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background: rgba(11, 11, 13, 0.06);
+      border: 1px solid rgba(11, 11, 13, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0b0b0d;
+    }
+    .job-details-card .job-detail-icon svg {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+    .job-details-card dt {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b6560;
+      margin-bottom: 0.2rem;
+    }
+    .job-details-card dd {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      color: #0b0b0d;
+      margin: 0;
+    }
+    .job-details-card .apply-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    @media (min-width: 640px) {
+      .job-details-card .apply-wrap { justify-content: flex-end; width: auto; margin-left: auto; }
+    }
+    .job-details-card .apply-wa-cta {
+      border-radius: 9999px;
+      padding: 0.75rem 1.75rem;
+      font-size: 0.8rem;
     }
   </style>
   <!-- Brevo form styles, adjusted to match page design -->
@@ -235,14 +313,9 @@
   </header>
 
   <main>
-    <!-- Hero: photo with text overlay (same font as home "Broadcast your, vision.") -->
+    <!-- Hero: text overlay on soft gradient -->
     <section class="apply-hero relative min-h-[70vh] flex items-end justify-center overflow-hidden">
-      <img
-        src="/images/hero-creator.jpg"
-        alt=""
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-[#f8f6f3] via-[#e8e3da] to-[#d9d0c4]"></div>
       <div class="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 pb-8 lg:pb-12 pt-24 text-center">
         <h1 class="text-white max-w-4xl mx-auto [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
           Remote Content Creator and Live Stream Host — Global Work From Anywhere
@@ -255,49 +328,41 @@
 
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
 
-    <!-- Job details card + Apply CTA (like ESLstarter's Location / Fee / Duration / Date box) -->
+    <!-- Job details card + Apply CTA -->
     <section class="pt-8 lg:pt-12 pb-8 lg:pb-12">
-      <div class="rounded-2xl border border-slate-200 bg-slate-100 p-6 lg:p-8 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-6">
-        <dl class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 flex-1 min-w-0">
-          <div class="flex gap-3 items-start">
-            <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            </span>
+      <div class="job-details-card flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-8">
+        <dl>
+          <div class="job-detail">
+            <span class="job-detail-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg></span>
             <div>
-              <dt class="text-sm font-medium text-slate-500">Location</dt>
-              <dd class="text-charcoal font-semibold mt-0.5">Fully Remote</dd>
+              <dt>Location</dt>
+              <dd>Fully Remote</dd>
             </div>
           </div>
-          <div class="flex gap-3 items-start">
-            <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            </span>
+          <div class="job-detail">
+            <span class="job-detail-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>
             <div>
-              <dt class="text-sm font-medium text-slate-500">Fee</dt>
-              <dd class="text-charcoal font-semibold mt-0.5">No fee</dd>
+              <dt>Fee</dt>
+              <dd>No fee</dd>
             </div>
           </div>
-          <div class="flex gap-3 items-start">
-            <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            </span>
+          <div class="job-detail">
+            <span class="job-detail-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></span>
             <div>
-              <dt class="text-sm font-medium text-slate-500">Duration</dt>
-              <dd class="text-charcoal font-semibold mt-0.5">Part Time or Full Time</dd>
+              <dt>Duration</dt>
+              <dd>Part Time or Full Time</dd>
             </div>
           </div>
-          <div class="flex gap-3 items-start">
-            <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            </span>
+          <div class="job-detail">
+            <span class="job-detail-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></span>
             <div>
-              <dt class="text-sm font-medium text-slate-500">Date</dt>
-              <dd class="text-charcoal font-semibold mt-0.5">Immediate</dd>
+              <dt>Date</dt>
+              <dd>Immediate</dd>
             </div>
           </div>
         </dl>
-        <div class="flex items-center justify-center sm:justify-end sm:ml-auto w-full sm:w-auto">
-          <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="apply-wa-cta inline-block rounded-xl px-8 py-4 font-semibold transition-all duration-200 text-center">
+        <div class="apply-wrap">
+          <a href="https://wa.me/31644757190" target="_blank" rel="noopener noreferrer" class="apply-wa-cta inline-block transition-all duration-200 text-center">
             Apply using WhatsApp
           </a>
         </div>
