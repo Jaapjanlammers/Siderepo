@@ -103,13 +103,9 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: radial-gradient(
-        ellipse 120% 100% at 50% 50%,
-        transparent 0%,
-        transparent 30%,
-        rgba(12, 11, 10, 0.4) 70%,
-        rgba(12, 11, 10, 0.85) 100%
-      );
+      background:
+        radial-gradient(ellipse 120% 100% at 50% 50%, transparent 0%, transparent 30%, rgba(12, 11, 10, 0.55) 70%, rgba(12, 11, 10, 0.9) 100%),
+        linear-gradient(to bottom, rgba(12, 11, 10, 0.45) 0%, rgba(12, 11, 10, 0.25) 40%, rgba(12, 11, 10, 0.6) 100%);
       pointer-events: none;
     }
     .hero-full-content {
@@ -118,6 +114,11 @@
       padding: clamp(3rem, 10vw, 6rem) clamp(2rem, 6vw, 4rem);
       max-width: 720px;
       margin: 0 auto;
+      background: rgba(11, 11, 13, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .hero-full-content h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -136,8 +137,36 @@
       margin-top: 0;
       margin-bottom: 1rem;
       font-weight: 400;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
     }
     .hero-full-content p:last-of-type { margin-bottom: 2rem; }
+    .trust-pills {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(248, 246, 243, 0.92);
+      font-size: 0.85rem;
+      line-height: 1;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .trust-pill strong {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      color: #fff;
+    }
     .hero-cta {
       display: inline-block;
       padding: 1rem 2rem;
@@ -502,6 +531,7 @@
     <a href="/home" class="site-header__logo" style="color: #6366f1;">vantage.content</a>
     <nav class="site-header__nav">
       <a href="/home">Home</a>
+      <a href="/careers">Careers</a>
       <a href="/careers" class="header-cta">View open roles</a>
     </nav>
   </header>
@@ -513,8 +543,15 @@
     <div class="hero-full-overlay" aria-hidden="true"></div>
     <div class="hero-full-content">
       <h1>Broadcast your vision.</h1>
+      <p>We’re a recruitment partner for <strong>digital live streaming hosts</strong>—built for creators who want professional support, clear expectations, and legitimate opportunities.</p>
       <p>Broadcast with the intention you’ve always wanted to. We celebrate the poised creator, the people who strive for their vision and the pioneer who refuses to let their voice be softened by the noise.</p>
       <p>Vantage was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
+      <div class="trust-pills" aria-label="Trust signals">
+        <span class="trust-pill"><strong>Amsterdam HQ</strong> · NL</span>
+        <span class="trust-pill"><strong>No upfront fees</strong></span>
+        <span class="trust-pill"><strong>Training</strong> + onboarding</span>
+        <span class="trust-pill"><strong>20+</strong> only</span>
+      </div>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span class="hero-scroll-hint__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>
@@ -578,7 +615,17 @@
   </div>
 
   <footer class="animate-on-scroll" style="border-top: 1px solid rgba(0,0,0,0.06); margin-top: 0; padding: calc(var(--section-padding) / 2) 2.5rem; font-size: 0.875rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
-    <span>Based in Amsterdam, The Netherlands</span>
+    <span>
+      VANTAGE CONTENT B.V.<br />
+      Global Talent Operations<br />
+      Herengracht 458<br />
+      1017 CA Amsterdam
+    </span>
+    <span>
+      <a href="mailto:markammand@gmail.com" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">
+        Email us
+      </a>
+    </span>
   </footer>
 
   <script>

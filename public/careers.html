@@ -113,6 +113,97 @@
       color: rgba(245,243,240,0.88);
       max-width: 36rem;
     }
+    .careers-trust {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .careers-trust span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(245,243,240,0.9);
+      font-size: 0.85rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .how-it-works {
+      margin-top: clamp(2rem, 4vw, 3rem);
+      width: 100%;
+      border-radius: 1.25rem;
+      background: radial-gradient(circle at top left, rgba(99,102,241,0.14), rgba(13,13,16,0.95));
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+    .how-it-works h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .how-it-works p {
+      color: rgba(245,243,240,0.86);
+      line-height: 1.65;
+      max-width: 60rem;
+    }
+    .how-steps {
+      margin-top: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+    @media (min-width: 900px) {
+      .how-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .how-step {
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 1.1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .how-step:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.45);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    }
+    .how-step-top {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+    .how-step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #c7d2fe;
+      font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .how-step h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .how-step p {
+      color: rgba(245,243,240,0.82);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
 
     .careers-icons {
       display: grid;
@@ -294,6 +385,7 @@
     <nav class="site-header__nav">
       <a href="/home">Home</a>
       <a href="/careers">Careers</a>
+      <a href="/careers" class="header-cta">View open roles</a>
     </nav>
   </header>
 
@@ -301,7 +393,13 @@
     <div class="careers-hero-inner">
       <div class="careers-copy animate-on-scroll">
         <h1>Build Your Career in the Digital Spotlight</h1>
-        <p>We are recruiting globally for our 2025 expansion. Whether you're in front of the camera or behind the scenes, we offer a professional path in the streaming industry.</p>
+        <p>vantage.content is a recruitment and talent operations partner for <strong>digital live streaming hosts</strong>. We recruit globally, screen responsibly, and guide applicants through onboarding so you can focus on your craft.</p>
+        <div class="careers-trust" aria-label="Trust signals">
+          <span>Amsterdam HQ (NL)</span>
+          <span>No upfront fees</span>
+          <span>20+ only</span>
+          <span>Training provided</span>
+        </div>
       </div>
       <div class="careers-icons animate-on-scroll">
         <div class="careers-icon">
@@ -329,6 +427,34 @@
           <div class="careers-icon-label">Dedicated support team</div>
         </div>
       </div>
+
+      <section class="how-it-works animate-on-scroll" aria-label="How recruitment works">
+        <h2>How recruitment works</h2>
+        <p>We keep it simple and professional. Apply to a role, share the basics, and we’ll follow up with clear next steps. We never ask for deposits or “registration fees.”</p>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-step-top">
+              <span class="how-step-num">1</span>
+              <h3>Apply</h3>
+            </div>
+            <p>Choose a vacancy and submit the form. We’ll confirm receipt and review your profile.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-step-top">
+              <span class="how-step-num">2</span>
+              <h3>Screening call</h3>
+            </div>
+            <p>A short chat to align on availability, language, platforms, and what a professional stream schedule looks like.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-step-top">
+              <span class="how-step-num">3</span>
+              <h3>Onboarding</h3>
+            </div>
+            <p>Training, guidelines, and support. You’ll understand exactly what success looks like before you go live.</p>
+          </div>
+        </div>
+      </section>
       <div class="careers-vacancy animate-on-scroll">
         <a href="/careers/remotecontentstreamer" class="careers-vacancy-link">
           <div class="careers-vacancy-title">Remote content creator</div>
