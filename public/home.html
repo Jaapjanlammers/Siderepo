@@ -131,9 +131,6 @@
         margin-left: clamp(1.5rem, 4vw, 4rem);
         margin-right: auto;
       }
-      .trust-pills {
-        justify-content: flex-start;
-      }
     }
     .hero-full-content h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -154,34 +151,7 @@
       font-weight: 400;
       text-shadow: 0 2px 12px rgba(0,0,0,0.55);
     }
-    .hero-full-content p:last-of-type { margin-bottom: 2rem; }
-    .trust-pills {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-    .trust-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.55rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(248, 246, 243, 0.92);
-      font-size: 0.85rem;
-      line-height: 1;
-      white-space: nowrap;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .trust-pill strong {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      color: #fff;
-    }
+    .hero-full-content p:last-of-type { margin-bottom: 1.5rem; }
     .hero-cta {
       display: inline-block;
       padding: 1rem 2rem;
@@ -561,12 +531,6 @@
       <p>We’re a recruitment partner for <strong>digital live streaming hosts</strong>—built for creators who want professional support, clear expectations, and legitimate opportunities.</p>
       <p>Broadcast with the intention you’ve always wanted to. We celebrate the poised creator, the people who strive for their vision and the pioneer who refuses to let their voice be softened by the noise.</p>
       <p>Vantage was curated to breathe life into your evolution, transforming your workspace into a sanctuary of high-end authority.</p>
-      <div class="trust-pills" aria-label="Trust signals">
-        <span class="trust-pill"><strong>Amsterdam HQ</strong> · NL</span>
-        <span class="trust-pill"><strong>No upfront fees</strong></span>
-        <span class="trust-pill"><strong>Training</strong> + onboarding</span>
-        <span class="trust-pill"><strong>20+</strong> only</span>
-      </div>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span class="hero-scroll-hint__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span>
@@ -636,13 +600,17 @@
       Herengracht 458<br />
       1017 CA Amsterdam
     </span>
-    <span>
-      <a href="mailto:markammand@gmail.com" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">
+    <span style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;">
+      <a href="/privacy-policy" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Privacy policy</a>
+      <a href="/cookie-policy" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Cookie policy</a>
+      <button type="button" data-vantage-cookie-settings style="background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer;">Cookie settings</button>
+      <a href="mailto:markammand@vantagecontent.com" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">
         Email us
       </a>
     </span>
   </footer>
 
+  <script src="/js/eu-cookie-consent.js" defer></script>
   <script>
     (function() {
       var header = document.getElementById('site-header');

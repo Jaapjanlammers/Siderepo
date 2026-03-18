@@ -4,7 +4,9 @@
     { "source": "/thank-you", "destination": "/thank-you.html" },
     { "source": "/home", "destination": "/home.html" },
     { "source": "/careers", "destination": "/careers.html" },
-    { "source": "/careers/remotecontentstreamer", "destination": "/careers/remotecontentstreamer/index.html" }
+    { "source": "/careers/remotecontentstreamer", "destination": "/careers/remotecontentstreamer/index.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+    { "source": "/cookie-policy", "destination": "/cookie-policy.html" }
   ],
   "redirects": [
     { "source": "/remotecontentstreamer", "destination": "/careers/remotecontentstreamer", "permanent": true }
