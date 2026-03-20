@@ -105,11 +105,9 @@ async function getSession(waId: string): Promise<SessionRow> {
     .maybeSingle();
   if (error) {
     console.error("Error loading session:", error.message);
-    return memorySessions.get(waId) ?? { wa_id: waId, stage: "idle", answers: {} };
-  }
-  if (!data) {
     return { wa_id: waId, stage: "idle", answers: {} };
   }
+  if (!data) return { wa_id: waId, stage: "idle", answers: {} };
   return {
     wa_id: data.wa_id,
     stage: (data.stage as Stage) || "idle",
@@ -120,12 +118,15 @@ async function getSession(waId: string): Promise<SessionRow> {
 async function saveSession(session: SessionRow): Promise<void> {
   memorySessions.set(session.wa_id, session);
   if (!supabase) return;
-  const { error } = await supabase.from(SESSION_TABLE).upsert({
-    wa_id: session.wa_id,
-    stage: session.stage,
-    answers: session.answers,
-    updated_at: new Date().toISOString(),
-  });
+  const { error } = await supabase.from(SESSION_TABLE).upsert(
+    {
+      wa_id: session.wa_id,
+      stage: session.stage,
+      answers: session.answers,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "wa_id" }
+  );
   if (error) {
     console.error("Error saving session:", error.message);
   }
@@ -133,16 +134,16 @@ async function saveSession(session: SessionRow): Promise<void> {
 
 async function saveApplication(session: SessionRow): Promise<void> {
   if (!supabase) return;
+  const age = session.answers.age ? Number.parseInt(session.answers.age, 10) : null;
   const { error } = await supabase.from(APPLICATION_TABLE).insert({
-    wa_id: session.wa_id,
     phone_number: session.wa_id,
-    vacancy: session.answers.vacancy ?? null,
+    vacancy: session.answers.vacancy ?? "",
     vacancy_label: session.answers.vacancy_label ?? null,
     first_name: session.answers.first_name ?? null,
     last_name: session.answers.last_name ?? null,
     email: session.answers.email ?? null,
     hours_per_week: session.answers.hours_per_week ?? null,
-    age: session.answers.age ? Number.parseInt(session.answers.age, 10) : null,
+    age: Number.isFinite(age) ? age : null,
     country: session.answers.country ?? null,
     english_level: session.answers.english_level ?? null,
     internet_speed: session.answers.internet_speed ?? null,
@@ -151,6 +152,7 @@ async function saveApplication(session: SessionRow): Promise<void> {
     alone_place: session.answers.alone_place ?? null,
     social_handle: session.answers.social_handle ?? null,
     best_video_url: session.answers.best_video_url ?? null,
+    wa_id: session.wa_id,
     source: "whatsapp",
     raw_answers: session.answers,
   });
@@ -323,8 +325,8 @@ Deno.serve(async (req: Request) => {
         const vacancyLabel = session.answers.vacancy_label ?? "selected role";
         const moreInfoUrl =
           vacancy === VACANCY_GLOBAL
-            ? "https://vantage.content/careers/globallivestreamhost"
-            : "https://vantage.content/careers/remotecontentstreamer";
+            ? "https://vantagecontent.com/careers/globallivestreamhost"
+            : "https://vantagecontent.com/careers/remotecontentstreamer";
 
         if (lower === "2" || lower.includes("info") || lower.includes("more")) {
           await sendWhatsAppText(

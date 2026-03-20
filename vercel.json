@@ -5,6 +5,7 @@
     { "source": "/home", "destination": "/home.html" },
     { "source": "/careers", "destination": "/careers.html" },
     { "source": "/careers/remotecontentstreamer", "destination": "/careers/remotecontentstreamer/index.html" },
+    { "source": "/careers/globallivestreamhost", "destination": "/careers/globallivestreamhost/index.html" },
     { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
     { "source": "/cookie-policy", "destination": "/cookie-policy.html" }
   ],
