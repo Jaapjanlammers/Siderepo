@@ -383,9 +383,10 @@ s3_access_key = "env(S3_ACCESS_KEY)"
 # Configures AWS_SECRET_ACCESS_KEY for S3 bucket
 s3_secret_key = "env(S3_SECRET_KEY)"
 
+# Meta WhatsApp sends webhooks without Supabase JWT — JWT must be off or every POST is 401.
 [functions.whatsapp-webhook]
 enabled = true
-verify_jwt = true
+verify_jwt = false
 import_map = "./functions/whatsapp-webhook/deno.json"
 # Uncomment to specify a custom file path to the entrypoint.
 # Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
