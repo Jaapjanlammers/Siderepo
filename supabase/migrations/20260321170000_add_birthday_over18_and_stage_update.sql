@@ -1,13 +1,11 @@
--- Run this in Supabase Dashboard → SQL Editor → New query
--- Creates whatsapp_sessions (whatsapp_applications already exists in your project)
+-- Replace age question with birthday and add final over18 confirmation stage.
+alter table public.whatsapp_sessions
+  drop constraint if exists whatsapp_sessions_stage_check;
 
-create table if not exists public.whatsapp_sessions (
-  wa_id text primary key,
-  stage text not null default 'idle',
-  answers jsonb not null default '{}'::jsonb,
-  updated_at timestamptz not null default now(),
-  constraint whatsapp_sessions_stage_check
-    check (stage in (
+alter table public.whatsapp_sessions
+  add constraint whatsapp_sessions_stage_check
+  check (
+    stage in (
       'idle',
       'choose_vacancy',
       'choose_action',
@@ -28,5 +26,9 @@ create table if not exists public.whatsapp_sessions (
       'ask_best_video_url',
       'ask_over18',
       'done'
-    ))
-);  1
+    )
+  );
+
+alter table public.whatsapp_applications
+  add column if not exists birthday text,
+  add column if not exists over18 boolean;

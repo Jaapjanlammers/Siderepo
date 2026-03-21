@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator stories — vantage.content</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --text: #0f0f0f;
+      --text-muted: #525252;
+      --section-padding: 120px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: padding 0.2s ease, background 0.2s ease;
+    }
+    .site-header.is-shrunk {
+      padding: 0.75rem clamp(1.5rem, 4vw, 3rem);
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .site-header__logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .site-header__logo:hover { opacity: 0.8; }
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    .site-header__nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .site-header__nav a:hover { color: var(--text); }
+    .site-header__nav a[aria-current="page"] { color: var(--text); }
+    .site-header__nav .header-cta {
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .site-header__nav .header-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px var(--accent-glow);
+      color: #fff;
+    }
+
+    .reviews-main {
+      padding-top: 5.5rem;
+    }
+
+    .reviews-intro {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+      text-align: center;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .reviews-intro h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .reviews-intro p {
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 36rem;
+      margin: 0 auto;
+    }
+
+    .reviews-grid-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem) var(--section-padding);
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(1.5rem, 3vw, 2rem);
+    }
+    @media (min-width: 640px) {
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    /* Desktop: alternating wide / narrow rows, featured centre card */
+    @media (min-width: 1024px) {
+      .reviews-grid {
+        grid-template-columns: repeat(12, 1fr);
+        align-items: start;
+      }
+      .review-card:nth-child(1) { grid-column: span 8; }
+      .review-card:nth-child(2) { grid-column: span 4; }
+      .review-card:nth-child(3) { grid-column: span 4; }
+      .review-card:nth-child(4) { grid-column: span 8; }
+      .review-card:nth-child(5) { grid-column: 4 / span 6; }
+    }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    }
+    .review-card__media {
+      overflow: hidden;
+      background: #f4f4f5;
+    }
+    /* Alternate image proportions: taller vs wider */
+    .review-card:nth-child(odd) .review-card__media {
+      aspect-ratio: 3 / 4;
+    }
+    .review-card:nth-child(even) .review-card__media {
+      aspect-ratio: 16 / 10;
+    }
+    @media (min-width: 1024px) {
+      .review-card:nth-child(1) .review-card__media,
+      .review-card:nth-child(4) .review-card__media {
+        aspect-ratio: 16 / 10;
+        min-height: 220px;
+      }
+      .review-card:nth-child(2) .review-card__media,
+      .review-card:nth-child(3) .review-card__media {
+        aspect-ratio: 3 / 4;
+        min-height: 280px;
+      }
+      .review-card:nth-child(5) .review-card__media {
+        aspect-ratio: 21 / 9;
+        min-height: 200px;
+      }
+    }
+    .review-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    /* Image 13: bias crop so the face stays visible (tweak % if needed) */
+    .review-card__media--focus-face img {
+      object-position: center 22%;
+    }
+    @media (min-width: 1024px) {
+      .review-card:nth-child(1) .review-card__media--focus-face img {
+        object-position: center 14%;
+      }
+    }
+    .review-card__body {
+      padding: 1.25rem 1.35rem 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .review-card:nth-child(1) .review-card__body,
+      .review-card:nth-child(4) .review-card__body,
+      .review-card:nth-child(5) .review-card__body {
+        padding: 1.45rem 1.55rem 1.7rem;
+      }
+    }
+    .review-card__quote {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 1024px) {
+      .review-card:nth-child(1) .review-card__quote,
+      .review-card:nth-child(4) .review-card__quote,
+      .review-card:nth-child(5) .review-card__quote {
+        font-size: 1.05rem;
+        line-height: 1.55;
+      }
+      .review-card:nth-child(2) .review-card__quote,
+      .review-card:nth-child(3) .review-card__quote {
+        font-size: 0.9rem;
+      }
+    }
+    .review-card__quote::before {
+      content: '“';
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 0;
+      margin-right: 0.15em;
+    }
+    .review-card__meta {
+      font-size: 0.8125rem;
+      line-height: 1.4;
+    }
+    .review-card__name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .review-card__role {
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .reviews-cta {
+      text-align: center;
+      padding: 0 1.5rem 3rem;
+    }
+    .reviews-cta a {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .reviews-cta a:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    @media (max-width: 640px) {
+      .site-header__nav { gap: 1rem; font-size: 0.8rem; }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <a href="/home" class="site-header__logo" style="color: #6366f1;">vantage.content</a>
+    <nav class="site-header__nav">
+      <a href="/home">Home</a>
+      <a href="/reviews" aria-current="page">Reviews</a>
+      <a href="/careers">Careers</a>
+      <a href="/careers" class="header-cta">View open roles</a>
+    </nav>
+  </header>
+
+  <main class="reviews-main">
+    <section class="reviews-intro animate-on-scroll">
+      <h1>Creator stories</h1>
+      <p>
+        Real voices from people who work with us—on camera, on schedule, and with the clarity that professional live streaming deserves.
+      </p>
+    </section>
+
+    <div class="reviews-grid-wrap">
+      <div class="reviews-grid">
+        <article class="review-card animate-on-scroll">
+          <div class="review-card__media review-card__media--focus-face">
+            <img src="/images/13.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="review-card__body">
+            <p class="review-card__quote">
+              The expectations were clear from day one. I finally felt like my time on stream was treated as a real role—not a side hustle guessing game.
+            </p>
+            <div class="review-card__meta">
+              <div class="review-card__name">Maya K.</div>
+              <div class="review-card__role">Live host</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card animate-on-scroll">
+          <div class="review-card__media">
+            <img src="/images/21.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="review-card__body">
+            <p class="review-card__quote">
+              Onboarding was structured and respectful. I always knew who to talk to and what the next step was.
+            </p>
+            <div class="review-card__meta">
+              <div class="review-card__name">Julia T.</div>
+              <div class="review-card__role">Content creator</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card animate-on-scroll">
+          <div class="review-card__media">
+            <img src="/images/17.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="review-card__body">
+            <p class="review-card__quote">
+              I appreciate the professional tone—contracts, comms, and schedules that match how serious I am about growing on camera.
+            </p>
+            <div class="review-card__meta">
+              <div class="review-card__name">Sofia R.</div>
+              <div class="review-card__role">Live streamer</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card animate-on-scroll">
+          <div class="review-card__media">
+            <img src="/images/16.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="review-card__body">
+            <p class="review-card__quote">
+              Great support around tech and setup questions. It removed a lot of the friction I had when I streamed on my own.
+            </p>
+            <div class="review-card__meta">
+              <div class="review-card__name">Alexandra D.</div>
+              <div class="review-card__role">On-camera host</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card animate-on-scroll">
+          <div class="review-card__media">
+            <img src="/images/18.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
+          </div>
+          <div class="review-card__body">
+            <p class="review-card__quote">
+              If you want legitimacy and a partner that actually understands live, this is the lane to be in.
+            </p>
+            <div class="review-card__meta">
+              <div class="review-card__name">Priya N.</div>
+              <div class="review-card__role">Digital host</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="reviews-cta animate-on-scroll">
+      <a href="/careers">View open roles</a>
+    </div>
+  </main>
+
+  <footer class="animate-on-scroll" style="border-top: 1px solid rgba(0,0,0,0.06); padding: calc(var(--section-padding) / 2) 2.5rem; font-size: 0.875rem; color: var(--text-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+    <span>
+      VANTAGE CONTENT B.V.<br />
+      Global Talent Operations<br />
+      Herengracht 458<br />
+      1017 CA Amsterdam
+    </span>
+    <span style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;">
+      <a href="/privacy-policy" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Privacy policy</a>
+      <a href="/cookie-policy" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Cookie policy</a>
+      <button type="button" data-vantage-cookie-settings style="background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer;">Cookie settings</button>
+      <a href="mailto:markammand@vantagecontent.com" style="color: inherit; text-decoration: underline; text-underline-offset: 2px;">Email us</a>
+    </span>
+  </footer>
+
+  <script src="/js/eu-cookie-consent.js" defer></script>
+  <script>
+    (function() {
+      var header = document.getElementById('site-header');
+      function onScroll() {
+        var top = window.pageYOffset || document.documentElement.scrollTop;
+        if (top > 80) header.classList.add('is-shrunk'); else header.classList.remove('is-shrunk');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) e.target.classList.add('is-visible');
+        });
+      }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
+      document.querySelectorAll('.animate-on-scroll').forEach(function(el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
