@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creator stories — vantage.content</title>
+  <title>Creator stories — vantage content</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -51,8 +51,9 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: 1rem;
-      letter-spacing: 0.02em;
-      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6366f1;
       text-decoration: none;
       transition: opacity 0.2s ease;
     }
@@ -186,13 +187,21 @@
       object-position: center;
       display: block;
     }
-    /* Image 13: bias crop so the face stays visible (tweak % if needed) */
+    /* Images 13 & 18: bias crop toward face (tweak % if needed) */
     .review-card__media--focus-face img {
       object-position: center 22%;
     }
     @media (min-width: 1024px) {
       .review-card:nth-child(1) .review-card__media--focus-face img {
         object-position: center 14%;
+      }
+      /* Bottom card (18): taller frame than 21:9 so the face isn’t a thin strip */
+      .review-card:nth-child(5) .review-card__media.review-card__media--focus-face {
+        aspect-ratio: 16 / 10;
+        min-height: 240px;
+      }
+      .review-card:nth-child(5) .review-card__media--focus-face img {
+        object-position: center 12%;
       }
     }
     .review-card__body {
@@ -284,7 +293,7 @@
 </head>
 <body>
   <header class="site-header" id="site-header">
-    <a href="/home" class="site-header__logo" style="color: #6366f1;">vantage.content</a>
+    <a href="/home" class="site-header__logo">vantage content</a>
     <nav class="site-header__nav">
       <a href="/home">Home</a>
       <a href="/careers">Careers</a>
@@ -364,7 +373,7 @@
         </article>
 
         <article class="review-card animate-on-scroll">
-          <div class="review-card__media">
+          <div class="review-card__media review-card__media--focus-face">
             <img src="/images/18.jpg" alt="Creator portrait" width="800" height="600" loading="lazy" />
           </div>
           <div class="review-card__body">

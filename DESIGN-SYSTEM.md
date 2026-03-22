@@ -2,7 +2,7 @@
 
 **Tagline:** High-Gloss Tactility · 90% White base with chromatic depth · "Beautiful" agency feel
 
-This document is the single source of truth for the Content Streamers / Vantage.Content visual language. Use it when adding new pages or refreshing the look.
+This document is the single source of truth for the Content Streamers / vantage content visual language. Use it when adding new pages or refreshing the look.
 
 ---
 
@@ -33,7 +33,7 @@ The **Home** and **Careers** pages share a consistent, implemented style that di
 ### Header (shared)
 
 - Sticky/fixed bar; border `1px solid rgba(255,255,255,0.06)`; light blur, dark semi-opaque background.
-- Logo: "vantage.content" (Cormorant Garamond). Nav: Home, Careers, Apply with WhatsApp (pill CTA).
+- Logo: "vantage content" (Plus Jakarta Sans, uppercase, letter-spacing like index). Nav: Home, Careers, Apply with WhatsApp (pill CTA).
 - No prism dots or glass-tray border; hover = color shift to white.
 
 ### What’s not on Home/Careers (vs Prism)

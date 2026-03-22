@@ -6,7 +6,7 @@ console.info("WhatsApp webhook function started");
 
 /** Shown in replies. Chat *header* name is set in Meta (WhatsApp Manager), not here. */
 const BUSINESS_NAME = Deno.env.get("WHATSAPP_BUSINESS_DISPLAY_NAME") ?? "Vantage Content";
-const BUSINESS_LINE = Deno.env.get("WHATSAPP_BUSINESS_TAGLINE") ?? "vantage.content";
+const BUSINESS_LINE = Deno.env.get("WHATSAPP_BUSINESS_TAGLINE") ?? "vantage content";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 

@@ -8,7 +8,7 @@
 | `WHATSAPP_ACCESS_TOKEN` | Meta Graph API access token |
 | `WHATSAPP_PHONE_NUMBER_ID` | **Numeric** ID from Meta → WhatsApp → API Setup (e.g. `1063338796858224`). Never leave the literal string `YOUR_PHONE_NUMBER_ID`. |
 | `WHATSAPP_BUSINESS_DISPLAY_NAME` | Optional. Default `Vantage Content`. Used in bot replies only. |
-| `WHATSAPP_BUSINESS_TAGLINE` | Optional. Default `vantage.content`. Used in bot replies only. |
+| `WHATSAPP_BUSINESS_TAGLINE` | Optional. Default `vantage content`. Used in bot replies only. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Required for persistent WhatsApp state in table `public.whatsapp_sessions`. |
 
 ## Session state (minimal)
@@ -33,7 +33,7 @@ That **name at the top of the chat** comes from **Meta / WhatsApp Business**, no
 3. If the number was tied to a **personal** Meta identity first, create or link a **Business Portfolio** and WhatsApp Business Account so the customer-facing name is the **business**, not an individual.
 4. **Verified business** names show more reliably; until then WhatsApp may show a generic or account-holder label.
 
-After Meta shows the right name, customers still get consistent wording from the bot (welcome + “who are you” replies use *Vantage Content* / *vantage.content*).
+After Meta shows the right name, customers still get consistent wording from the bot (welcome + “who are you” replies use *Vantage Content* / *vantage content*).
 
 ## Rotate the verify token
 
