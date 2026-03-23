@@ -29,4 +29,4 @@ create table if not exists public.whatsapp_sessions (
       'ask_over18',
       'done'
     ))
-);  1
+);

@@ -188,9 +188,8 @@ A mid-page section that defines the brand’s beauty.
 
 ## 7. Reference Files
 
-- **Current site (implemented):** `public/home.html`, `public/careers.html` — dark header, Inter + Cormorant Garamond, §0.
-- **Vacancy (apply) page:** `public/careers/remotecontentstreamer/index.html` — URL: `/careers/remotecontentstreamer`.
-- **Thank-you:** `public/thank-you.html` (URL: `/thank-you`). Root `thank-you.html` is optional/local.
-- **Prism / High-Gloss demo:** `public/design-system-demo.html` — optional palette and components.
+- **Current site (implemented):** `public/home.html`, `public/careers.html`, `public/reviews.html` — see §0 for palette/typography in use.
+- **Vacancy (apply) pages:** `public/careers/remotecontentstreamer/index.html`, `public/careers/globallivestreamhost/index.html`.
+- **Thank-you:** `public/thank-you.html` (URL: `/thank-you`).
 
 When in doubt, use §0 for Home and Careers; use the Prism sections above for new “white base” or demo pages.
