@@ -91,17 +91,20 @@
       position: absolute;
       inset: 0;
       z-index: 0;
-      background: radial-gradient(circle at top right, #f8f6f3, #dcd7cf);
+      background:
+        radial-gradient(circle at 75% 20%, rgba(99, 102, 241, 0.25), rgba(99, 102, 241, 0) 42%),
+        radial-gradient(circle at 15% 80%, rgba(128, 131, 255, 0.2), rgba(128, 131, 255, 0) 48%),
+        #131313;
     }
     .landing-hero-overlay {
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: radial-gradient(
-        ellipse 100% 100% at 50% 50%,
-        transparent 0%,
-        rgba(11, 11, 13, 0.4) 50%,
-        rgba(11, 11, 13, 0.85) 100%
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 12, 0.25) 0%,
+        rgba(10, 10, 12, 0.6) 55%,
+        rgba(10, 10, 12, 0.9) 100%
       );
       pointer-events: none;
     }
@@ -114,6 +117,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+    .landing-kicker {
+      margin-bottom: 0.85rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: #c0c1ff;
     }
     .landing-sub {
       margin-top: 1.25rem;
@@ -139,10 +151,17 @@
       font-size: clamp(5.25rem, 10.5vw, 7.875rem);
       letter-spacing: 0.02em;
       line-height: 1.12;
-      color: #080808;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+      color: #ffffff;
+      text-shadow: 0 12px 40px rgba(0,0,0,0.42);
       white-space: nowrap;
       opacity: 0;
+    }
+    .landing-hero-tagline__word--vantage {
+      background: linear-gradient(90deg, #c0c1ff, #8083ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
     }
     .landing-hero-tagline__word--vision {
       animation: word-in 0.5s ease 0.5s forwards, word-out 0.3s ease 1.2s forwards;
@@ -161,14 +180,14 @@
       font-size: 1rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #080808;
+      color: rgba(229, 226, 225, 0.9);
       text-decoration: none;
-      border-bottom: 1px solid rgba(8, 8, 8, 0.6);
+      border-bottom: 1px solid rgba(229, 226, 225, 0.6);
       padding-bottom: 0.25rem;
     }
     .landing-hero-enter:hover {
-      color: #000;
-      border-bottom-color: #000;
+      color: #fff;
+      border-bottom-color: #fff;
     }
     @keyframes word-in {
       to { opacity: 1; }
@@ -187,6 +206,7 @@
     <div class="landing-hero-bg"></div>
     <div class="landing-hero-overlay" aria-hidden="true"></div>
     <div class="landing-hero-tagline">
+      <span class="landing-kicker">The digital frontier</span>
       <div class="landing-hero-tagline__words">
         <span class="landing-hero-tagline__word landing-hero-tagline__word--vision" aria-hidden="true">Vision</span>
         <span class="landing-hero-tagline__word landing-hero-tagline__word--voice" aria-hidden="true">Voice</span>
