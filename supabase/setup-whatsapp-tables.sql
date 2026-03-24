@@ -30,3 +30,12 @@ create table if not exists public.whatsapp_sessions (
       'done'
     ))
 );
+
+create table if not exists public.whatsapp_inbox (
+  id uuid primary key default gen_random_uuid(),
+  wa_id text not null,
+  message_text text not null,
+  stage text not null,
+  resolved boolean not null default false,
+  created_at timestamptz not null default now()
+);

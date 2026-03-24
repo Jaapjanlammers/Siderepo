@@ -9,9 +9,13 @@
 | `WHATSAPP_PHONE_NUMBER_ID` | **Numeric** ID from Meta → WhatsApp → API Setup (e.g. `1063338796858224`). Never leave the literal string `YOUR_PHONE_NUMBER_ID`. |
 | `WHATSAPP_BUSINESS_DISPLAY_NAME` | Optional. Default `Vantage Content`. Used in bot replies only. |
 | `WHATSAPP_BUSINESS_TAGLINE` | Optional. Default `vantage content`. Used in bot replies only. |
+| `WHATSAPP_BOT_NAME` | Optional. Default `Alex`. Name the assistant uses when introducing itself in WhatsApp. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Required for persistent WhatsApp state in table `public.whatsapp_sessions`. |
+| `WHATSAPP_INBOX_ALERT_EMAIL` | Optional. Email address to notify when non-application WhatsApp inquiries arrive. |
+| `BREVO_API_KEY` | Optional (required only for inbox email alerts). Used to send notification emails via Brevo. |
+| `BREVO_SENDER_EMAIL` | Optional (required only for inbox email alerts). Verified sender email in Brevo. |
 
-## Session state (minimal)
+## Session state + inbox
 
 State is intentionally lightweight:
 - `wa_id` (phone number)
@@ -23,6 +27,8 @@ Create table once (recommended):
 ```bash
 supabase db push
 ```
+
+This function now also writes free-form inbound messages (outside the apply flow) into `public.whatsapp_inbox` and can email alerts when `WHATSAPP_INBOX_ALERT_EMAIL` + Brevo secrets are set.
 
 ## Chat shows a person’s name (e.g. yours) instead of “Vantage Content”
 

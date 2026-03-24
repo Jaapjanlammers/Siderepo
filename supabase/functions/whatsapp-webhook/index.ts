@@ -7,11 +7,14 @@ console.info("WhatsApp webhook function started");
 /** Shown in replies. Chat *header* name is set in Meta (WhatsApp Manager), not here. */
 const BUSINESS_NAME = Deno.env.get("WHATSAPP_BUSINESS_DISPLAY_NAME") ?? "Vantage Content";
 const BUSINESS_LINE = Deno.env.get("WHATSAPP_BUSINESS_TAGLINE") ?? "vantage content";
+/** Bot persona name in messages (optional secret `WHATSAPP_BOT_NAME`). */
+const BOT_NAME = Deno.env.get("WHATSAPP_BOT_NAME")?.trim() || "Alex";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
 const SESSION_TABLE = "whatsapp_sessions";
 const APPLICATION_TABLE = "whatsapp_applications";
+const INBOX_TABLE = "whatsapp_inbox";
 const VACANCY_REMOTE = "remote_content_creator";
 const VACANCY_GLOBAL = "global_live_stream_host";
 /** Minimum age to apply (enforced from birthday + final confirmation). */
@@ -121,15 +124,16 @@ function wantsBusinessIdentity(text: string): boolean {
 function identityReply(): string {
   return (
     `You’re messaging *${BUSINESS_NAME}*.\n\n` +
-    "We’re the recruitment partner for digital live streaming hosts. " +
-    "This is our official business WhatsApp—not a personal account.\n\n" +
+    `I’m *${BOT_NAME}*, the assistant here to help with applications and questions. ` +
+    "We’re the recruitment partner for digital live streaming hosts, and this is our official business WhatsApp—not a personal account.\n\n" +
     "Reply *1* or *2* to choose a vacancy."
   );
 }
 
 function vacancyPrompt(): string {
   return (
-    "Welcome to Vantage Content. We are here to bridge the gap and pair your unique personality with major brands.\n\n" +
+    `Hi! I’m *${BOT_NAME}*, *${BUSINESS_NAME}*’s application assistant.\n\n` +
+    "We’re here to bridge the gap and pair your unique personality with major brands.\n\n" +
     "How can we help?\n\n" +
     "*1.* See our vacancies?\n" +
     "*2.* Send email?\n\n" +
@@ -222,6 +226,66 @@ async function saveApplication(session: SessionRow): Promise<void> {
   if (error) {
     console.error("Error saving application:", error.message);
   }
+}
+
+async function saveInboxMessage(waId: string, messageText: string, stage: Stage): Promise<void> {
+  if (!supabase) return;
+  const { error } = await supabase.from(INBOX_TABLE).insert({
+    wa_id: waId,
+    message_text: messageText,
+    stage,
+    resolved: false,
+  });
+  if (error) {
+    console.error("Error saving inbox message:", error.message);
+  }
+}
+
+async function notifyInboxEmail(waId: string, messageText: string, stage: Stage): Promise<void> {
+  const brevoKey = Deno.env.get("BREVO_API_KEY");
+  const senderEmail = Deno.env.get("BREVO_SENDER_EMAIL");
+  const alertEmail = Deno.env.get("WHATSAPP_INBOX_ALERT_EMAIL");
+  if (!brevoKey || !senderEmail || !alertEmail) return;
+
+  const payload = {
+    sender: { email: senderEmail, name: "vantage content" },
+    to: [{ email: alertEmail }],
+    subject: "New WhatsApp inbox message",
+    textContent:
+      `Incoming WhatsApp message\\n\\n` +
+      `From: ${waId}\\n` +
+      `Stage: ${stage}\\n` +
+      `Message: ${messageText}\\n` +
+      `Received at: ${new Date().toISOString()}`,
+  };
+
+  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "api-key": brevoKey,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const body = await res.text();
+    console.error("Inbox alert email failed:", res.status, body);
+  }
+}
+
+function looksLikeGeneralInquiry(text: string): boolean {
+  const t = text.trim();
+  if (t.length < 4) return false;
+  // Treat free-form text as inquiry; short numeric replies should stay in flow.
+  return /[a-zA-Z]/.test(t);
+}
+
+async function logAndNotifyInquiry(waId: string, messageText: string, stage: Stage): Promise<void> {
+  await Promise.all([
+    saveInboxMessage(waId, messageText, stage),
+    notifyInboxEmail(waId, messageText, stage),
+  ]);
 }
 
 function isValidEmail(value: string): boolean {
@@ -520,6 +584,15 @@ Deno.serve(async (req: Request) => {
           return new Response("EVENT_RECEIVED", { status: 200 });
         }
 
+        if (looksLikeGeneralInquiry(textBody)) {
+          await logAndNotifyInquiry(from, textBody, session.stage);
+          await sendWhatsAppText(
+            from,
+            "Thanks for your message. A team member will reply shortly.\n\nIf you want to apply now, reply *1*."
+          );
+          return new Response("EVENT_RECEIVED", { status: 200 });
+        }
+
         await sendWhatsAppText(
           from,
           "Please reply *1* (See our vacancies) or *2* (Send email).\n\nIf you want to apply, start with *1*."
@@ -549,6 +622,15 @@ Deno.serve(async (req: Request) => {
             session,
             from,
             `Great, let's apply for *${vacancyLabel}*.\n\nQuestion 1/14: What is your first name?`
+          );
+          return new Response("EVENT_RECEIVED", { status: 200 });
+        }
+
+        if (looksLikeGeneralInquiry(textBody)) {
+          await logAndNotifyInquiry(from, textBody, session.stage);
+          await sendWhatsAppText(
+            from,
+            "Thanks for your message. A team member will reply shortly.\n\nReply *1* to apply or *2* for more info."
           );
           return new Response("EVENT_RECEIVED", { status: 200 });
         }
@@ -896,10 +978,18 @@ Deno.serve(async (req: Request) => {
         return new Response("EVENT_RECEIVED", { status: 200 });
       }
 
-      await sendWhatsAppText(
-        from,
-        "Your application is already submitted. Reply *restart* to start over."
-      );
+      if (looksLikeGeneralInquiry(textBody)) {
+        await logAndNotifyInquiry(from, textBody, session.stage);
+        await sendWhatsAppText(
+          from,
+          "Thanks for your message. A team member will reply shortly.\n\nReply *restart* to start a new application."
+        );
+      } else {
+        await sendWhatsAppText(
+          from,
+          "Your application is already submitted. Reply *restart* to start over."
+        );
+      }
     } catch (e) {
       console.error("Error handling webhook:", e);
     }
